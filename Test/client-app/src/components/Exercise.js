@@ -1,5 +1,6 @@
 ﻿import React, {Component} from "react";
 import {variables} from "../Variables";
+import FixedOptionsMuscle from "./Selects/FixedOptionsMuscle";
 
 export class Exercise extends Component {
     constructor(props) {
@@ -34,13 +35,13 @@ export class Exercise extends Component {
 
     addClick() {
         this.setState({
-            thisTitle: "Add Exercise", Id: 0, Name: "", musclesTrained : []
+            thisTitle: "Add Exercise", Id: 0, Name: "", musclesTrained: []
         });
     }
 
     editClick(exercise) {
         this.setState({
-            thisTitle: "Edit Exercise", Id: exercise.Id, Name: exercise.Name, musclesTrained : exercise.musclesTrained
+            thisTitle: "Edit Exercise", Id: exercise.Id, Name: exercise.Name, musclesTrained: exercise.musclesTrained
         });
     }
 
@@ -50,7 +51,7 @@ export class Exercise extends Component {
             method: 'POST', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             }, body: JSON.stringify({
-                Name: this.state.Name, MusclesTrained: this.state.musclesTrained 
+                Name: this.state.Name, MusclesTrained: this.state.musclesTrained
             })
         })
             .then(res => res.json())
@@ -135,11 +136,10 @@ export class Exercise extends Component {
                     {exercises.map(exercise => <tr key={exercise.Id}>
                         <td>{exercise.Id}</td>
                         <td>{exercise.Name}</td>
-                        <td>{exercise.MusclesTrained.map(function (muscle){
-                            if (exercise.MusclesTrained.indexOf(muscle) !== exercise.MusclesTrained.length-1){
-                                return muscle.Name+ ", "
-                            }
-                            else {
+                        <td>{exercise.MusclesTrained.map(function (muscle) {
+                            if (exercise.MusclesTrained.indexOf(muscle) !== exercise.MusclesTrained.length - 1) {
+                                return muscle.Name + ", "
+                            } else {
                                 return muscle.Name
                             }
                         })}</td>
@@ -199,6 +199,14 @@ export class Exercise extends Component {
                                 {/*            <option key={key}>{value}</option>))}*/}
                                 {/*    </select>*/}
                                 {/*</div>*/}
+
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text">Muscle</span>
+                                    <div className="col-md-auto">
+                                        <FixedOptionsMuscle/>
+                                    </div>
+                                </div>
+                                    <div className="col-md-auto">
                                 {Id === 0 ? <button type="button"
                                                     className="btn btn-primary float-start"
                                                     onClick={() => this.createClick()}
@@ -207,6 +215,7 @@ export class Exercise extends Component {
                                 {Id !== 0 ? <button type="button"
                                                     onClick={() => this.updateClick()}
                                                     className="btn btn-primary float-start">Update</button> : null}
+                            </div>
                             </div>
                         </div>
                     </div>

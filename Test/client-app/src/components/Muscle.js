@@ -1,4 +1,4 @@
-﻿import React, {Component} from "react";
+import React, {Component} from "react";
 import {variables} from "../Variables";
 
 export class Muscle extends Component {
@@ -8,6 +8,7 @@ export class Muscle extends Component {
         this.state = {
             muscles: [], thisTitle: "NotChanging", Name: "", selectedOption: 0
         }
+
     }
 
     refreshList() {

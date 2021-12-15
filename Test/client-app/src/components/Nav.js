@@ -1,4 +1,4 @@
-﻿import '../App.css';
+import '../App.css';
 import {Link} from "react-router-dom";
 
 function Nav() {
@@ -7,15 +7,22 @@ function Nav() {
             <nav className="navbar navbar-expand-sm bg-light navbar-dark">
                 <ul className="navbar-nav">
                     <li className="mav-item- m-1">
-                        <Link to="/"><li className="btn btn-light btn-outline-primary">Home</li></Link>
+                        <Link to="/">
+                            <h5 className="btn btn-light btn-outline-primary">Home</h5>
+                        </Link>
                     </li>
                     <li className="mav-item- m-1">
-                        <Link to="/muscle"><li className="btn btn-light btn-outline-primary">Muscle</li></Link>
+                        <Link to="/muscle">
+                            <h5 className="btn btn-light btn-outline-primary">Muscle</h5>
+                        </Link>
                     </li>
                     <li className="mav-item- m-1">
-                        <Link to="/exercise"><li className="btn btn-light btn-outline-primary" >Exercise</li></Link>
+                        <Link to="/exercise">
+                            <h5 className="btn btn-light btn-outline-primary">Exercise</h5>
+                        </Link>
                     </li>
                 </ul>
+
             </nav>
         </div>
     );

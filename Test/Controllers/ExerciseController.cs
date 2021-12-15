@@ -25,7 +25,7 @@ namespace Test.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Exercise>>> GetExercises()
         {
-            return await _context.Exercises.ToListAsync();
+            return await _context.Exercises.Include(E=>E.MusclesTrained).ToListAsync();
         }
 
         // GET: api/Exercise/5

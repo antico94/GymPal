@@ -132,16 +132,23 @@ export class Exercise extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {muscles.map(exercise => <tr key={exercise.Id}>
+                    {exercises.map(exercise => <tr key={exercise.Id}>
                         <td>{exercise.Id}</td>
                         <td>{exercise.Name}</td>
-                        <td>0</td>
+                        <td>{exercise.MusclesTrained.map(function (muscle){
+                            if (exercise.MusclesTrained.indexOf(muscle) !== exercise.MusclesTrained.length-1){
+                                return muscle.Name+ ", "
+                            }
+                            else {
+                                return muscle.Name
+                            }
+                        })}</td>
                         <td>
                             <button type='button'
                                     className="btn btn-light mr-1"
                                     data-bs-toggle="modal"
                                     data-bs-target="#exampleModal"
-                                    onClick={() => this.editClick(mus)}>
+                                    onClick={() => this.editClick(exercise)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      className="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path
@@ -154,7 +161,7 @@ export class Exercise extends Component {
                             <button type='button'
                                     className="btn btn-light mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     onClick={() => this.deleteClick(mus.Id)}
+                                     onClick={() => this.deleteClick(exercise.Id)}
                                      className="bi bi-trash-fill" viewBox="0 0 16 16">
 
                                     <path
@@ -185,13 +192,13 @@ export class Exercise extends Component {
                                            onChange={this.changeMuscleName}/>
                                 </div>
 
-                                <div className="input-group mb-3">
-                                    <span className="input-group-text">Category</span>
-                                    <select value={this.state.selectedOption} onChange={this.changeSelected}>
-                                        {Object.entries(Category).map(([key, value]) => (
-                                            <option key={key}>{value}</option>))}
-                                    </select>
-                                </div>
+                                {/*<div className="input-group mb-3">*/}
+                                {/*    <span className="input-group-text">Category</span>*/}
+                                {/*    <select value={this.state.selectedOption} onChange={this.changeSelected}>*/}
+                                {/*        {Object.entries(Category).map(([key, value]) => (*/}
+                                {/*            <option key={key}>{value}</option>))}*/}
+                                {/*    </select>*/}
+                                {/*</div>*/}
                                 {Id === 0 ? <button type="button"
                                                     className="btn btn-primary float-start"
                                                     onClick={() => this.createClick()}

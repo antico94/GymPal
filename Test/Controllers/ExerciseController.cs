@@ -25,7 +25,7 @@ namespace Test.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Exercise>>> GetExercises()
         {
-            return await _context.Exercises.Include(e=>e.MusclesTrained).ToListAsync();
+            return await _context.Exercises.Include(e => e.MusclesTrained).ToListAsync();
         }
 
         // GET: api/Exercise/5
@@ -45,14 +45,22 @@ namespace Test.Controllers
         // PUT: api/Exercise/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutExercise(int id, Exercise exercise)
+        public async Task<IActionResult> PutExercise(int id, ExerciseWebModel model)
         {
-            if (id != exercise.Id)
+            if (id != model.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(exercise).State = EntityState.Modified;
+            var musclesTrained = GetMusclesByListOfIds(model.MusclesIdList);
+            var result = _context.Exercises.Include(t => t.MusclesTrained).SingleOrDefault(b => b.Id == model.Id);
+
+            if (result != null)
+            {
+                result.Name = model.Name;
+                result.MusclesTrained = musclesTrained;
+            }
+
 
             try
             {
@@ -87,7 +95,7 @@ namespace Test.Controllers
             _context.Exercises.Add(exercise);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetExercise", new { id = exercise.Id }, exercise);
+            return CreatedAtAction("GetExercise", new {id = exercise.Id}, exercise);
         }
 
         // DELETE: api/Exercise/5
@@ -116,9 +124,9 @@ namespace Test.Controllers
             var muscles = new List<Muscle>();
             foreach (var id in musclesId)
             {
-                if (_context.Muscles.Any(m=>m.Id == id))
+                if (_context.Muscles.Any(m => m.Id == id))
                 {
-                    muscles.Add(_context.Muscles.First(m=>m.Id == id));
+                    muscles.Add(_context.Muscles.First(m => m.Id == id));
                 }
                 else
                 {

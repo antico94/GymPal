@@ -45,7 +45,7 @@ export class Exercise extends Component {
 
     editClick(exercise) {
         this.setState({
-            thisTitle: "Edit Exercise", Id: exercise.Id, Name: exercise.Name, selectedOptions: [1, 2]
+            thisTitle: "Edit Exercise", Id: exercise.Id, Name: exercise.Name, selectedOptions: exercise.selectedOptions
         });
     }
 
@@ -68,6 +68,47 @@ export class Exercise extends Component {
                 this.refreshList()
             })
 
+    }
+
+
+     updateClick() {
+        console.log(this.state.Id)
+        console.log(this.state.Name)
+        console.log(this.state.selectedOptions)
+        fetch(variables.EXERCISE_API_URL + "/" + this.state.Id, {
+            method: 'PUT', headers: {
+                'Accept': 'application/json', 'Content-Type': 'application/json'
+            }, body: JSON.stringify({
+                Id: this.state.Id, Name: this.state.Name, MusclesIdList: this.state.selectedOptions
+            })
+        })
+            .then(res => res.json())
+            .then((result) => {
+                console.log("Succes MDF " + result)
+                this.refreshList()
+            }, (error) => {
+                this.refreshList()
+                console.log("eRROR MDF " + error)
+            })
+    }
+
+
+        deleteClick(id) {
+        if (window.confirm("Are you sure?")) {
+            fetch(variables.EXERCISE_API_URL + "/" + id, {
+                method: 'DELETE', headers: {
+                    'Accept': 'application/json', 'Content-Type': 'application/json'
+                }
+            })
+                .then(res => res.json())
+                .then((result) => {
+                    console.log("Succes MDF " + result)
+                    this.refreshList()
+                }, (error) => {
+                    this.refreshList()
+                    console.log("eRROR MDF " + error)
+                })
+        }
     }
 
 
@@ -114,7 +155,6 @@ export class Exercise extends Component {
                     {exercises.map(exercise => <tr key={exercise.Id}>
                         <td>{exercise.Id}</td>
                         <td>{exercise.Name}</td>
-                        {console.log(exercise)}
                         <td>{exercise.MusclesTrained.map(function (muscle) {
                             if (exercise.MusclesTrained.indexOf(muscle) !== exercise.MusclesTrained.length - 1) {
                                 return muscle.Name + ", "

@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Test.Models.GymData;
+using Test.Models.GymData.Enums;
 using Test.Models.MuscleDb;
+using Test.Models.WebModels;
 
 namespace Test.Controllers
 {
@@ -45,15 +47,16 @@ namespace Test.Controllers
         // PUT: api/Muscle/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMuscle(int id, Muscle muscle)
+        public async Task<IActionResult> PutMuscle(int id, MuscleWebModel model)
         {
-            if (id != muscle.Id)
+            var result = _context.Muscles.First(b => b.Id == id);
+
+            if (result!=null)
             {
-                return BadRequest();
+                result.Category = (Category)model.Category;
+                result.Name = model.Name;
             }
-
-            _context.Entry(muscle).State = EntityState.Modified;
-
+            
             try
             {
                 await _context.SaveChangesAsync();
@@ -76,8 +79,13 @@ namespace Test.Controllers
         // POST: api/Muscle
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Muscle>> PostMuscle(Muscle muscle)
+        public async Task<ActionResult<Muscle>> PostMuscle(MuscleWebModel model)
         {
+            var muscle = new Muscle()
+            {
+                Name = model.Name,
+                Category = model.Category
+            };
             _context.Muscles.Add(muscle);
             await _context.SaveChangesAsync();
 

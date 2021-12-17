@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 function Nav() {
     return (
         <div>
-            <nav className="navbar navbar-expand-sm bg-light navbar-dark">
+            <nav className="navbar navbar-expand-sm">
                 <ul className="navbar-nav">
                     <li className="mav-item- m-1">
                         <Link to="/">

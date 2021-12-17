@@ -25,6 +25,7 @@ namespace Test.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Exercise>>> GetExercises()
         {
+            // return await _context.Exercises.ToListAsync();
             return await _context.Exercises.Include(e => e.MusclesTrained).ToListAsync();
         }
 
@@ -135,6 +136,15 @@ namespace Test.Controllers
             }
 
             return muscles;
+        }
+
+        [Route("GetExercisesFromMusclesSelected")]
+        [HttpPost]
+        public ActionResult<IEnumerable<Exercise>> GetExercisesFromMusclesSelected(List<int> musclesId)
+        {
+            var exercises = _context.Exercises.Include(m => m.MusclesTrained);
+            var result = new List<Exercise>();
+            return result;
         }
     }
 }

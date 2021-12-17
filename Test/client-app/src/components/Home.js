@@ -1,7 +1,10 @@
 import React, {Component} from "react";
 
 export class Home extends Component{
-    
+    componentDidMount() {
+
+    }
+
     render(){
         document.getElementById("sex").style.visibility = "hidden";
         return(
@@ -11,3 +14,5 @@ export class Home extends Component{
         )
     }
 }
+
+

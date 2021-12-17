@@ -43,12 +43,19 @@ export class Muscle extends Component {
     }
 
     createClick() {
-
+        console.log(this.state.Name)
+        console.log(this.state.selectedOption)
+        const dict = {
+            "Arms" : 1,
+            "Back" : 2,
+            "Core" : 3,
+            "Legs" : 4
+        }
         fetch(variables.MUSCLE_API_URL, {
             method: 'POST', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             }, body: JSON.stringify({
-                Name: this.state.Name, Category: this.state.selectedOption
+                Name: this.state.Name, Category: dict[this.state.selectedOption]
             })
         })
             .then(res => res.json())

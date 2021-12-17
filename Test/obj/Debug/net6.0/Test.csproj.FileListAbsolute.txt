@@ -292,3 +292,4 @@ D:\CodeCool\TW3\Test\Test\bin\Debug\net6.0\runtimes\win-x86\native\e_sqlite3.dll
 D:\CodeCool\TW3\Test\Test\bin\Debug\net6.0\client-app\package-lock.json
 D:\CodeCool\TW3\Test\Test\bin\Debug\net6.0\client-app\package.json
 D:\CodeCool\TW3\Test\Test\bin\Debug\net6.0\client-app\public\manifest.json
+D:\CodeCool\TW3\Test\Test\bin\Debug\net6.0\client-app\tsconfig.json

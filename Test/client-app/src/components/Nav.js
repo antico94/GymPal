@@ -21,6 +21,11 @@ function Nav() {
                             <h5 className="btn btn-light btn-outline-primary">Exercise</h5>
                         </Link>
                     </li>
+                    <li className="mav-item- m-1">
+                        <Link to="/DisplayMuscle">
+                            <h5 className="btn btn-light btn-outline-primary">Muscle Selector</h5>
+                        </Link>
+                    </li>
                 </ul>
 
             </nav>

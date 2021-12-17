@@ -19,6 +19,7 @@ export class Muscle extends Component {
 
     componentDidMount() {
         this.refreshList();
+        document.getElementById("sex").style.visibility = "hidden";
     }
 
     changeMuscleName = (e) => {

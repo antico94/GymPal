@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import {variables} from "../Variables";
-import CustomSelect from "./Selects/CustomMuscleSelect";
+import MuscleMultiSelect from "./Selects/MuscleSelect";
 
 
 export class Exercise extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            muscles: [], thisTitle: "NotChanging", Name: "", selectedOptions: [1, 2, 3], Id: 0, exercises: []
+            muscles: [], thisTitle: "NotChanging", Name: "", selectedOptions: [], Id: 0, exercises: []
         }
     }
 
@@ -25,6 +25,7 @@ export class Exercise extends Component {
 
     componentDidMount() {
         this.refreshList();
+        document.getElementById("sex").style.visibility = "hidden";
     }
 
     changeMuscleName = (e) => {
@@ -45,7 +46,7 @@ export class Exercise extends Component {
 
     editClick(exercise) {
         this.setState({
-            thisTitle: "Edit Exercise", Id: exercise.Id, Name: exercise.Name, selectedOptions: exercise.selectedOptions
+            thisTitle: "Edit Exercise", Id: exercise.Id, Name: exercise.Name, selectedOptions: exercise.MusclesTrained
         });
     }
 
@@ -71,10 +72,10 @@ export class Exercise extends Component {
     }
 
 
-     updateClick() {
-        console.log(this.state.Id)
-        console.log(this.state.Name)
-        console.log(this.state.selectedOptions)
+    updateClick() {
+        // console.log(this.state.Id)
+        // console.log(this.state.Name)
+        // console.log(this.state.selectedOptions)
         fetch(variables.EXERCISE_API_URL + "/" + this.state.Id, {
             method: 'PUT', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
@@ -93,7 +94,7 @@ export class Exercise extends Component {
     }
 
 
-        deleteClick(id) {
+    deleteClick(id) {
         if (window.confirm("Are you sure?")) {
             fetch(variables.EXERCISE_API_URL + "/" + id, {
                 method: 'DELETE', headers: {
@@ -115,6 +116,16 @@ export class Exercise extends Component {
     convertOptions(data) {
         let options = [];
         data.map(function (element) {
+            let dict = {value: element.Id, label: element.Name,}
+            return options.push(dict)
+        });
+        return options;
+    }
+
+    convertDefaultValues(data, muscles) {
+        let result = data.filter(o1 => !muscles.some(o2 => o1.id === o2.id))
+        let options = []
+        result.map(function (element) {
             let dict = {label: element.Name, value: element.Id}
             return options.push(dict)
         });
@@ -215,13 +226,25 @@ export class Exercise extends Component {
                                 <div className="input-group mb-3">
                                     <span className="input-group-text">Muscle</span>
                                     <div className="col-md-auto">
-                                        <CustomSelect
+
+                                        {/*<CustomSelect*/}
+                                        {/*    options={this.convertOptions(muscles)}*/}
+                                        {/*    selectedOption={selectedOptions}*/}
+                                        {/*    className="form-control"*/}
+                                        {/*    isMulti={true}*/}
+                                        {/*    defaultValue = {this.convertOptions(muscles)[0]}*/}
+                                        {/*    onChange={this.onChangeSelect.bind(this)}/>*/}
+
+
+                                        <MuscleMultiSelect
                                             options={this.convertOptions(muscles)}
-                                            selectedOption={selectedOptions}
+                                            selectedOption={this.convertOptions(muscles)[0]}
                                             className="form-control"
                                             isMulti={true}
-                                            defaultValue={[]}
+                                            defaultValue = {this.convertOptions(muscles)[0]}
                                             onChange={this.onChangeSelect.bind(this)}/>
+                                        
+
                                     </div>
                                 </div>
 

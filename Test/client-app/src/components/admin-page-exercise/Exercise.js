@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {variables} from "../Variables";
-import MuscleMultiSelect from "./Selects/MuscleSelect";
+import {variables} from "../../containers/Variables";
+import MuscleMultiSelect from "../muscle-selector/MuscleSelect";
 
 
 export class Exercise extends Component {
@@ -25,7 +25,7 @@ export class Exercise extends Component {
 
     componentDidMount() {
         this.refreshList();
-        document.getElementById("sex").style.visibility = "hidden";
+        // document.getElementById("sex").style.visibility = "hidden";
     }
 
     changeMuscleName = (e) => {

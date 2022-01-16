@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {variables} from "../Variables";
+import {variables} from "../../containers/Variables";
 
 export class Muscle extends Component {
     constructor(props) {
@@ -19,7 +19,7 @@ export class Muscle extends Component {
 
     componentDidMount() {
         this.refreshList();
-        document.getElementById("sex").style.visibility = "hidden";
+        // document.getElementById("sex").style.visibility = "hidden";
     }
 
     changeMuscleName = (e) => {

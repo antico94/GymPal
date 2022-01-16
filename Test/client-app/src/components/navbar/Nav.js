@@ -1,4 +1,4 @@
-import '../App.css';
+import './nav.css';
 import {Link} from "react-router-dom";
 
 function Nav() {
@@ -12,12 +12,12 @@ function Nav() {
                         </Link>
                     </li>
                     <li className="mav-item- m-1">
-                        <Link to="/muscle">
+                        <Link to="/admin/muscles">
                             <h5 className="btn btn-light btn-outline-primary">Muscle</h5>
                         </Link>
                     </li>
                     <li className="mav-item- m-1">
-                        <Link to="/exercise">
+                        <Link to="/admin/exercises">
                             <h5 className="btn btn-light btn-outline-primary">Exercise</h5>
                         </Link>
                     </li>

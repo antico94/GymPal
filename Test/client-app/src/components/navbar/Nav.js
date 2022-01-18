@@ -2,8 +2,7 @@ import './nav.css';
 import {Link} from "react-router-dom";
 
 function Nav() {
-    return (
-        <div>
+    return (<div>
             <nav className="navbar navbar-expand-sm">
                 <ul className="navbar-nav">
                     <li className="mav-item- m-1">
@@ -27,10 +26,8 @@ function Nav() {
                         </Link>
                     </li>
                 </ul>
-
             </nav>
-        </div>
-    );
+        </div>);
 }
 
 export default Nav;

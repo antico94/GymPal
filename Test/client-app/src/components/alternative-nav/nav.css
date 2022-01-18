@@ -1,0 +1,85 @@
+﻿.navbar .container {
+    margin: 10px auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 50px;
+}
+
+.navbar ul {
+    justify-self: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar li {
+    padding: 0 20px;
+}
+
+.navbar ul li a:hover {
+    color: #000;
+}
+
+a {
+    color: var(--dark-gray);
+    text-decoration: none;
+}
+
+
+ul {
+    list-style: none;
+}
+
+.logo {
+    width: 80px;
+
+}
+
+@media (max-width: 700px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    .navbar .container {
+        margin: 10px auto;
+        grid-template-columns: 1fr;
+        grid-gap: 10px;
+    }
+
+    .navbar .container {
+        display: flex;
+        flex-direction: column;
+        margin: 10px auto;
+        align-items: center;
+        justify-content: center;
+    }}
+
+.navbar .btn {
+    text-transform: uppercase;
+    font-weight: bold;
+    background: var(--button);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 3px;
+}
+
+.navbar .btn:hover {
+    background-color: var(--button-hover);
+}
+
+.navbar input {
+    border: none;
+    font-size: 1rem;
+    padding: 5px 10px 5px 0;
+    margin-left: 20px;
+    border-bottom: 1px solid var(--dark-gray);
+    outline: none;
+}
+
+.navbar .search-mobile {
+    display: none;
+}
+
+.navbar ::placeholder {
+    color: var(--light-gray);
+}

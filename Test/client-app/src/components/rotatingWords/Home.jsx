@@ -32,14 +32,12 @@ class Homepage extends Component {
         return (
             <div className="rotating-words">
                 <h2>
-                    GymPal
+                    <span className='custom-color-blue'>Gym</span><span className="custom-color-red">Pal</span>
                     <div className="mask">
-                        <span data-show>finds exercises for you</span>
+                        <span data-show="">is easy to use</span>
                         <span>increases acountability</span>
                         <span>tracks your progress</span>
-                        <span>helps with goal setting</span>
-                        <span>promotes variety</span>
-                        <span>gives diet advice</span>
+                        <span>helps seting goals</span>
                     </div>
                 </h2>
             </div>);

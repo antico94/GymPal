@@ -2,7 +2,7 @@ import React from "react";
 import './home.css'
 import {RotatingWords} from "../index";
 import logo from "./../../assets/img/Dumbbell-Fitness-Man-Transparent-PNG.png"
-import PhoneLogo from "./../../assets/img/gymLogopng.png"
+import Grill from "./../../assets/img/grilll.png"
 // import Banner from "../../assets/img/home-banner.jpg"
 import short1 from '../../assets/video/short (1).mp4'
 import short2 from '../../assets/video/short (2).mp4'
@@ -51,12 +51,13 @@ class Homepage extends React.Component {
                 <section className="section-a">
                     <div className="container">
                         <div>
-                            <h1>The Essence of Sports in Our Life</h1>
+                            <h1><span>Meet</span> <span className="custom-color-blue">Gym</span><span className="custom-color-red">Pal</span></h1>
                             <p>
-                                Sports have universal benefits. In most cases, we are used to various games until we do
-                                not see their value in our life. It is normal. However, sports contribute many aspects
-                                to living a complete life. Here are some of the elements that clearly portray the
-                                importance of sports in our life.
+                                GymPal is a Health & Fitness app that has everything you need to plan
+                                and track your fitness program. Use our anatomically correct model to identify a muscle,
+                                view a selection of exercise results, add to a workout and get moving! You can then
+                                track your workout progress, share your achievements and do it all over again for any of
+                                the 152 muscles mapped with any of the 600 associated exercises.
                             </p>
                             <a href="#" className="btn" onClick={this.playVideo}>Give me some motivation!</a>
                             <div className='video-player'>
@@ -135,8 +136,8 @@ class Homepage extends React.Component {
                             <RotatingWords/>
                         </div>
                         <img id="logo-png"
-                            src={PhoneLogo}
-                            alt="apple-watch"/>
+                             src={Grill}
+                             alt="Grill"/>
                     </div>
                 </section>
                 <Features/>

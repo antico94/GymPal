@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {variables} from "../../containers/Variables";
 import MuscleMultiSelect from "../muscle-selector/MuscleSelect";
+import './exercise.css'
 
 
 export class Exercise extends Component {
@@ -139,7 +140,7 @@ export class Exercise extends Component {
         } = this.state
         return (
 
-            <div>
+            <div className="admin-exercise">
                 <button type="button"
                         className="btn btn-primary m-2 float-end"
                         data-bs-toggle="modal"

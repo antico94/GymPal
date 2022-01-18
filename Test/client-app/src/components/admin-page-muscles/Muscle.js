@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {variables} from "../../containers/Variables";
+import './muscle.css'
 
 export class Muscle extends Component {
     constructor(props) {
@@ -116,7 +117,7 @@ export class Muscle extends Component {
         }
         return (
 
-            <div>
+            <div className='admin-muscle'>
                 <button type="button"
                         className="btn btn-primary m-2 float-end"
                         data-bs-toggle="modal"

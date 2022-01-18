@@ -3,29 +3,30 @@ import './home.css'
 
 
 class Homepage extends Component {
+    intervalID = 0;
+
     componentDidMount() {
-    setInterval(function () {
-        const show = document.querySelector('span[data-show]')
-        const next = show.nextElementSibling || document.querySelector('span:first-child')
-        const up = document.querySelector('span[data-up]')
+        this.intervalID = setInterval(function () {
+            const show = document.querySelector('span[data-show]')
+            const next = show.nextElementSibling || document.querySelector('span:first-child')
+            const up = document.querySelector('span[data-up]')
 
-        if (up) {
-            up.removeAttribute('data-up')
-        }
+            if (up) {
+                up.removeAttribute('data-up')
+            }
 
-        show.removeAttribute('data-show')
-        show.setAttribute('data-up', '')
+            show.removeAttribute('data-show')
+            show.setAttribute('data-up', '')
 
-        next.setAttribute('data-show', '')
-    }, 2000)}
-    
+            next.setAttribute('data-show', '')
+        }, 2000)
+    }
+
+
     componentWillUnmount() {
-        this.stopFunction()
+        clearInterval(this.intervalID);
     }
-    
-    stopFunction(){
-        clearInterval(this.myInterval)
-    }
+
 
     render() {
         return (

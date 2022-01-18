@@ -14,6 +14,7 @@ import short7 from '../../assets/video/short (7).mp4'
 import short8 from '../../assets/video/short (8).mp4'
 import short9 from '../../assets/video/short (9).mp4'
 import $ from 'jquery'
+import Features from "../features/features";
 
 class Homepage extends React.Component {
     componentDidMount = () => {
@@ -138,7 +139,7 @@ class Homepage extends React.Component {
                             alt="apple-watch"/>
                     </div>
                 </section>
-
+                <Features/>
                 <section className="section-d">
                     <div className="overlay">
                         <div className="container">
@@ -159,7 +160,6 @@ class Homepage extends React.Component {
                     </div>
                 </section>
             </div>)
-
     }
 }
 

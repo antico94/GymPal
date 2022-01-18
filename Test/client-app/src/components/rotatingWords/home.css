@@ -2,6 +2,9 @@
     --offset: 6px;
 }
 
+.html{
+    scroll-behavior: smooth;
+}
 
 .container .rotating-words {
     position: absolute;

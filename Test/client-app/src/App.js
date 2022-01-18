@@ -9,6 +9,8 @@ import {
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Homepage from "./components/homepage/Home";
 import TestNav from "./components/alternative-nav/nav";
+import Features from "./components/features/features";
+import React from "react";
 
 
 function App() {
@@ -16,7 +18,6 @@ function App() {
     return (
         <Router>
             <div className="App">
-                {/*<NavBar/>*/}
                 <TestNav/>
                 <Routes>
                     <Route path="/admin/muscles" element={<Muscle/>}/>

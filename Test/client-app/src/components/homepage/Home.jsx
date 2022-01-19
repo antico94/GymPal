@@ -155,7 +155,7 @@ class Homepage extends React.Component {
 
                                     But what about your health?
                                 </p>
-                                <a href="#" className="btn">Explore Features</a>
+                                <a href="/displayMuscle" className="btn" id="footer-button">Explore Features</a>
                             </div>
                         </div>
                     </div>

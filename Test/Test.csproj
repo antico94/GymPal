@@ -42,4 +42,8 @@
       <_ContentIncludedByDefault Remove="Views\AdminExercise\Index.cshtml" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="client-app\src\Pages\Account" />
+    </ItemGroup>
+
 </Project>

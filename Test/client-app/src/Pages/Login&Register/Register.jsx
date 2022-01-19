@@ -2,6 +2,7 @@
 import "./login.css"
 import $ from 'jquery'
 import {variables as API} from "../containers/Variables";
+import {Navigate, Redirect} from 'react-router-dom'
 
 
 const Register = () => {
@@ -9,6 +10,7 @@ const Register = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [redirect, setRedirect] = useState(false)
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -26,12 +28,16 @@ const Register = () => {
         title.text("Account created successfully!")
         $('form').fadeOut(500);
         $('.wrapper').addClass('form-success');
+        setTimeout(function () {
+            window.location.href = "http://localhost:3000/login"
+        }, 1500)
     }
 
     const RegisterFailed = () => {
         let title = $('#register-title')
         title.text("There is already an account with this email.");
     }
+
 
     return (<div className="login-page">
         <div className="wrapper">

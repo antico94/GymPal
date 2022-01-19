@@ -1,64 +1,61 @@
 import React, {Component} from "react";
 import {variables as API} from "../../containers/Variables";
-import MuscleMultiSelect from "../muscle-selector/MuscleSelect";
-import './exercise.css'
+import './admin.css'
 
-
-export class Exercise extends Component {
+export class Muscle extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            muscles: [], thisTitle: "NotChanging", Name: "", selectedOptions: [], Id: 0, exercises: []
+            muscles: [], thisTitle: "NotChanging", Name: "", selectedOption: 0
         }
+
     }
 
-
     refreshList() {
-        fetch(API.EXERCISE)
-            .then(response => response.json())
-            .then(data => this.setState({exercises: data}))
-
-        fetch(API.MUSCLE_API_URL)
+        fetch(API.MUSCLE)
             .then(response => response.json())
             .then(data => this.setState({muscles: data}))
     }
 
-
     componentDidMount() {
         this.refreshList();
-        // document.getElementById("sex").style.visibility = "hidden";
     }
 
     changeMuscleName = (e) => {
         this.setState({Name: e.target.value});
     }
 
-
-    onChangeSelect(e) {
-        this.setState({selectedOptions: e.map(z => z.value)})
+    changeSelected = (e) => {
+        this.setState({selectedOption: e.target.value});
     }
-
 
     addClick() {
         this.setState({
-            thisTitle: "Add Exercise", Id: 0, Name: "", selectedOptions: []
+            thisTitle: "Add Muscle", Id: 0, Name: ""
         });
     }
 
-    editClick(exercise) {
+    editClick(muscle) {
         this.setState({
-            thisTitle: "Edit Exercise", Id: exercise.Id, Name: exercise.Name, selectedOptions: exercise.MusclesTrained
+            thisTitle: "Edit Muscle", Id: muscle.Id, Name: muscle.Name
         });
     }
 
     createClick() {
         console.log(this.state.Name)
-        console.log(this.state.selectedOptions)
-        fetch(API.EXERCISE, {
+        console.log(this.state.selectedOption)
+        const dict = {
+            "Arms" : 1,
+            "Back" : 2,
+            "Core" : 3,
+            "Legs" : 4
+        }
+        fetch(API.MUSCLE, {
             method: 'POST', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             }, body: JSON.stringify({
-                Name: this.state.Name, musclesIdList: this.state.selectedOptions
+                Name: this.state.Name, Category: dict[this.state.selectedOption]
             })
         })
             .then(res => res.json())
@@ -74,14 +71,11 @@ export class Exercise extends Component {
 
 
     updateClick() {
-        // console.log(this.state.Id)
-        // console.log(this.state.Name)
-        // console.log(this.state.selectedOptions)
-        fetch(API.EXERCISE + "/" + this.state.Id, {
+        fetch(API.MUSCLE + "/" + this.state.Id, {
             method: 'PUT', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             }, body: JSON.stringify({
-                Id: this.state.Id, Name: this.state.Name, MusclesIdList: this.state.selectedOptions
+                Id: this.state.Id, Name: this.state.Name, Category: this.state.selectedOption
             })
         })
             .then(res => res.json())
@@ -97,7 +91,7 @@ export class Exercise extends Component {
 
     deleteClick(id) {
         if (window.confirm("Are you sure?")) {
-            fetch(API.EXERCISE + "/" + id, {
+            fetch(API.MUSCLE + "/" + id, {
                 method: 'DELETE', headers: {
                     'Accept': 'application/json', 'Content-Type': 'application/json'
                 }
@@ -113,34 +107,16 @@ export class Exercise extends Component {
         }
     }
 
-
-    convertOptions(data) {
-        let options = [];
-        data.map(function (element) {
-            let dict = {value: element.Id, label: element.Name,}
-            return options.push(dict)
-        });
-        return options;
-    }
-
-    convertDefaultValues(data, muscles) {
-        let result = data.filter(o1 => !muscles.some(o2 => o1.id === o2.id))
-        let options = []
-        result.map(function (element) {
-            let dict = {label: element.Name, value: element.Id}
-            return options.push(dict)
-        });
-        return options;
-    }
-
-
     render() {
         const {
-            muscles, Id, thisTitle, Name, exercises, selectedOptions
+            muscles, Id, thisTitle, Name
         } = this.state
+        const Category = {
+            0: "Arms", 1: "Back", 2: "Core", 3: "Legs"
+        }
         return (
 
-            <div className="admin-exercise">
+            <div className='admin-muscle'>
                 <button type="button"
                         className="btn btn-primary m-2 float-end"
                         data-bs-toggle="modal"
@@ -148,7 +124,7 @@ export class Exercise extends Component {
                         onClick={() => this.addClick()}>
                     Add Muscle
                 </button>
-                <h3 className="d-flex justify-content-center m-3">Exercise Page</h3>
+                <h3 className="d-flex justify-content-center m-3">Muscle Page</h3>
                 <table className="table table-striped">
                     <thead>
                     <tr>
@@ -159,27 +135,21 @@ export class Exercise extends Component {
                             Name
                         </th>
                         <th>
-                            Muscles Trained
+                            Category
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    {exercises.map(exercise => <tr key={exercise.Id}>
-                        <td>{exercise.Id}</td>
-                        <td>{exercise.Name}</td>
-                        <td>{exercise.MusclesTrained.map(function (muscle) {
-                            if (exercise.MusclesTrained.indexOf(muscle) !== exercise.MusclesTrained.length - 1) {
-                                return muscle.Name + ", "
-                            } else {
-                                return muscle.Name
-                            }
-                        })}</td>
+                    {muscles.map(mus => <tr key={mus.Id}>
+                        <td>{mus.Id}</td>
+                        <td>{mus.Name}</td>
+                        <td>{Category[mus.Category]}</td>
                         <td>
                             <button type='button'
                                     className="btn btn-light mr-1"
                                     data-bs-toggle="modal"
                                     data-bs-target="#exampleModal"
-                                    onClick={() => this.editClick(exercise)}>
+                                    onClick={() => this.editClick(mus)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      className="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path
@@ -192,7 +162,7 @@ export class Exercise extends Component {
                             <button type='button'
                                     className="btn btn-light mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     onClick={() => this.deleteClick(exercise.Id)}
+                                     onClick={() => this.deleteClick(mus.Id)}
                                      className="bi bi-trash-fill" viewBox="0 0 16 16">
 
                                     <path
@@ -223,43 +193,21 @@ export class Exercise extends Component {
                                            onChange={this.changeMuscleName}/>
                                 </div>
 
-
                                 <div className="input-group mb-3">
-                                    <span className="input-group-text">Muscle</span>
-                                    <div className="col-md-auto">
-
-                                        {/*<CustomSelect*/}
-                                        {/*    options={this.convertOptions(muscles)}*/}
-                                        {/*    selectedOption={selectedOptions}*/}
-                                        {/*    className="form-control"*/}
-                                        {/*    isMulti={true}*/}
-                                        {/*    defaultValue = {this.convertOptions(muscles)[0]}*/}
-                                        {/*    onChange={this.onChangeSelect.bind(this)}/>*/}
-
-
-                                        <MuscleMultiSelect
-                                            options={this.convertOptions(muscles)}
-                                            selectedOption={this.convertOptions(muscles)[0]}
-                                            className="form-control"
-                                            isMulti={true}
-                                            defaultValue = {this.convertOptions(muscles)[0]}
-                                            onChange={this.onChangeSelect.bind(this)}/>
-                                        
-
-                                    </div>
+                                    <span className="input-group-text">Category</span>
+                                    <select value={this.state.selectedOption} onChange={this.changeSelected}>
+                                        {Object.entries(Category).map(([key, value]) => (
+                                            <option key={key}>{value}</option>))}
+                                    </select>
                                 </div>
+                                {Id === 0 ? <button type="button"
+                                                    className="btn btn-primary float-start"
+                                                    onClick={() => this.createClick()}
+                                >Create</button> : null}
 
-
-                                <div className="col-md-auto">
-                                    {Id === 0 ? <button type="button"
-                                                        className="btn btn-primary float-start"
-                                                        onClick={() => this.createClick()}
-                                    >Create</button> : null}
-
-                                    {Id !== 0 ? <button type="button"
-                                                        onClick={() => this.updateClick()}
-                                                        className="btn btn-primary float-start">Update</button> : null}
-                                </div>
+                                {Id !== 0 ? <button type="button"
+                                                    onClick={() => this.updateClick()}
+                                                    className="btn btn-primary float-start">Update</button> : null}
                             </div>
                         </div>
                     </div>

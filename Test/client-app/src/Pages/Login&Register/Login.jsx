@@ -17,19 +17,20 @@ const Login = () => {
         const content = await response.json();
         if (content.Name !== undefined) {
             LoginSuccess(content.Name)
-        }
-        else LoginFailed();
-        
+        } else LoginFailed();
+
     }
 
 
     const LoginSuccess = (_name) => {
-        console.log("good")
         let title = $('#success-fail-title')
         title.text("Welcome " + _name + "!")
         title.css("color", "white")
         $('form').fadeOut(500);
         $('.wrapper').addClass('form-success');
+        setTimeout(function () {
+            window.location.href = "http://localhost:3000/"
+        }, 1500)
     }
 
     const LoginFailed = () => {

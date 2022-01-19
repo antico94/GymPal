@@ -38,7 +38,7 @@ class Features extends Component {
                     <div className="features-content">
                         <div id='data-features-tabs' className="features-content-col">
                             <div id="feature-1" className="features-textblock animated fadeIn __active">
-                                <h2>User Profile</h2>
+                                <h2>Customise your profile</h2>
                                 <p>It is very important for an user to create a Gym Pal profile. Your profile
                                     is an overview of general information about yourself, and the skill sets that you
                                     possess.</p>

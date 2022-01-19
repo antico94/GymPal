@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {variables as API} from "../../containers/Variables";
 import './admin.css'
 
-export class Muscle extends Component {
+class Muscle extends Component {
     constructor(props) {
         super(props);
 
@@ -215,3 +215,5 @@ export class Muscle extends Component {
             </div>)
     }
 }
+
+export default Muscle

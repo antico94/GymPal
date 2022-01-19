@@ -1,7 +1,5 @@
 import './App.css';
-import {
-    DisplayMuscle,
-} from './components';
+import {DisplayMuscle} from './components';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Homepage from "./components/homepage/Home";
 import TestNav from "./components/alternative-nav/nav";

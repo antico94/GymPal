@@ -4,7 +4,7 @@ import MuscleMultiSelect from "../../components/muscle-selector/MuscleSelect"
 import './admin.css'
 
 
-export class Exercise extends Component {
+class Exercise extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -267,3 +267,5 @@ export class Exercise extends Component {
             </div>)
     }
 }
+
+export default Exercise

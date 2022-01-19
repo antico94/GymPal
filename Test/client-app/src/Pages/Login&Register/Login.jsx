@@ -1,7 +1,7 @@
 ﻿import React, {useState} from 'react';
 import "./login.css"
 import $ from 'jquery'
-import {variables as API} from "../containers/Variables";
+import {variables as API} from "../../containers/Variables";
 
 
 const Login = () => {
@@ -10,9 +10,7 @@ const Login = () => {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         const response = await fetch(API.LOGIN, {
-            method: "POST",
-            headers: {"Content-Type": "Application/json"},
-            body: JSON.stringify({email, password})
+            method: "POST", headers: {"Content-Type": "Application/json"}, body: JSON.stringify({email, password})
         });
         const content = await response.json();
         if (content.Name !== undefined) {
@@ -40,32 +38,31 @@ const Login = () => {
     }
 
 
-    return (
-        <div className="login-page">
-            <div className="wrapper">
-                <div className="container">
-                    <h1 id="success-fail-title">Login</h1>
+    return (<div className="login-page">
+        <div className="wrapper">
+            <div className="container">
+                <h1 id="success-fail-title">Login</h1>
 
-                    <form className="form" onSubmit={onSubmitHandler}>
-                        <input onChange={e => setEmail(e.target.value)} type="email" placeholder="Email"/>
-                        <input onChange={e => setPassword(e.target.value)} type="password" placeholder="Password"/>
-                        <button type="submit" id="login-button">Login</button>
-                    </form>
-                </div>
-
-                <ul className="bg-bubbles">
-                    <li/>
-                    <li/>
-                    <li/>
-                    <li/>
-                    <li/>
-                    <li/>
-                    <li/>
-                    <li/>
-                    <li/>
-                    <li/>
-                </ul>
+                <form className="form" onSubmit={onSubmitHandler}>
+                    <input onChange={e => setEmail(e.target.value)} type="email" placeholder="Email"/>
+                    <input onChange={e => setPassword(e.target.value)} type="password" placeholder="Password"/>
+                    <button type="submit" id="login-button">Login</button>
+                </form>
             </div>
-        </div>)
+
+            <ul className="bg-bubbles">
+                <li/>
+                <li/>
+                <li/>
+                <li/>
+                <li/>
+                <li/>
+                <li/>
+                <li/>
+                <li/>
+                <li/>
+            </ul>
+        </div>
+    </div>)
 }
 export default Login

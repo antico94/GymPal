@@ -12,6 +12,7 @@ import TestNav from "./components/alternative-nav/nav";
 import Features from "./components/features/features";
 import React from "react";
 import Login from "./Pages/Login";
+import Register from "./Pages/Register";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
                     <Route path="/DisplayMuscle" element={<DisplayMuscle/>}/>
                     <Route path="/admin/exercises" element={<Exercise/>}/>
                     <Route path="/login" element={<Login/>}/>
+                    <Route path="/register" element={<Register/>}/>
                 </Routes>
             </div>
         </Router>

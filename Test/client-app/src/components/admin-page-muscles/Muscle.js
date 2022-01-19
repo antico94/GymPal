@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {variables} from "../../containers/Variables";
+import {variables as API} from "../../containers/Variables";
 import './muscle.css'
 
 export class Muscle extends Component {
@@ -13,7 +13,7 @@ export class Muscle extends Component {
     }
 
     refreshList() {
-        fetch(variables.MUSCLE_API_URL)
+        fetch(API.MUSCLE)
             .then(response => response.json())
             .then(data => this.setState({muscles: data}))
     }
@@ -51,7 +51,7 @@ export class Muscle extends Component {
             "Core" : 3,
             "Legs" : 4
         }
-        fetch(variables.MUSCLE_API_URL, {
+        fetch(API.MUSCLE, {
             method: 'POST', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             }, body: JSON.stringify({
@@ -71,7 +71,7 @@ export class Muscle extends Component {
 
 
     updateClick() {
-        fetch(variables.MUSCLE_API_URL + "/" + this.state.Id, {
+        fetch(API.MUSCLE + "/" + this.state.Id, {
             method: 'PUT', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             }, body: JSON.stringify({
@@ -91,7 +91,7 @@ export class Muscle extends Component {
 
     deleteClick(id) {
         if (window.confirm("Are you sure?")) {
-            fetch(variables.MUSCLE_API_URL + "/" + id, {
+            fetch(API.MUSCLE + "/" + id, {
                 method: 'DELETE', headers: {
                     'Accept': 'application/json', 'Content-Type': 'application/json'
                 }

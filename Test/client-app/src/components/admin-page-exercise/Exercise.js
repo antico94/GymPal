@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {variables} from "../../containers/Variables";
+import {variables as API} from "../../containers/Variables";
 import MuscleMultiSelect from "../muscle-selector/MuscleSelect";
 import './exercise.css'
 
@@ -14,11 +14,11 @@ export class Exercise extends Component {
 
 
     refreshList() {
-        fetch(variables.EXERCISE_API_URL)
+        fetch(API.EXERCISE)
             .then(response => response.json())
             .then(data => this.setState({exercises: data}))
 
-        fetch(variables.MUSCLE_API_URL)
+        fetch(API.MUSCLE_API_URL)
             .then(response => response.json())
             .then(data => this.setState({muscles: data}))
     }
@@ -54,7 +54,7 @@ export class Exercise extends Component {
     createClick() {
         console.log(this.state.Name)
         console.log(this.state.selectedOptions)
-        fetch(variables.EXERCISE_API_URL, {
+        fetch(API.EXERCISE, {
             method: 'POST', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             }, body: JSON.stringify({
@@ -77,7 +77,7 @@ export class Exercise extends Component {
         // console.log(this.state.Id)
         // console.log(this.state.Name)
         // console.log(this.state.selectedOptions)
-        fetch(variables.EXERCISE_API_URL + "/" + this.state.Id, {
+        fetch(API.EXERCISE + "/" + this.state.Id, {
             method: 'PUT', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
             }, body: JSON.stringify({
@@ -97,7 +97,7 @@ export class Exercise extends Component {
 
     deleteClick(id) {
         if (window.confirm("Are you sure?")) {
-            fetch(variables.EXERCISE_API_URL + "/" + id, {
+            fetch(API.EXERCISE + "/" + id, {
                 method: 'DELETE', headers: {
                     'Accept': 'application/json', 'Content-Type': 'application/json'
                 }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
+using Test.Helper;
 using Test.Models.MuscleDb;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,14 +10,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews().AddNewtonsoftJson(options=>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore).AddNewtonsoftJson
     (options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+builder.Services.AddScoped<JwtService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddDbContext<MuscleContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<UserContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("UserConnection")));
+
 builder.Services.AddSwaggerGen();
 //Enable CORS
 builder.Services.AddCors(c =>
-    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+    c.AddPolicy("AllowOrigin", options => options.SetIsOriginAllowed(_=>true).AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

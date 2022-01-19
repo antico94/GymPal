@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Rxf8L4Glv3m0ZGV55dUi1QpSx69xhOcMKzY52UfjLHW4tqZ0yUX7HogQed+aDRmyEw8FSEt4mQPrc1ERKlRHxQ==",
+  "dgSpecHash": "SwReG/7qYjtoNrr7fp7U6On9ov9zxu3GIhJOpuhuEhiaKmsSI/AKJqCxYP3apSTDfqXDzhQvDSBQCr2e9MC0Pg==",
   "success": true,
   "projectFilePath": "D:\\CodeCool\\TW3\\Test\\Test\\Test.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Meiu\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\Meiu\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Meiu\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\Meiu\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",

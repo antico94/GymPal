@@ -11,6 +11,7 @@ import Homepage from "./components/homepage/Home";
 import TestNav from "./components/alternative-nav/nav";
 import Features from "./components/features/features";
 import React from "react";
+import Login from "./Pages/Login";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/" element={<Homepage/>}/>
                     <Route path="/DisplayMuscle" element={<DisplayMuscle/>}/>
                     <Route path="/admin/exercises" element={<Exercise/>}/>
+                    <Route path="/login" element={<Login/>}/>
                 </Routes>
             </div>
         </Router>

@@ -79,7 +79,10 @@ public class AuthController : Controller
         }
         catch (Exception e)
         {
-            return Unauthorized();
+            return Unauthorized(new
+            {
+                message = e.ToString()
+            });
         }
     }
 

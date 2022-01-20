@@ -2,7 +2,7 @@
 import $ from "jquery";
 import './displayMuscle.css'
 
-export class DisplayMuscle extends Component {
+class DisplayMuscle extends Component {
 
     componentDidMount() {
         document.querySelectorAll(".muscle-groups svg g g[id]").forEach(function (group) {
@@ -310,3 +310,5 @@ export class DisplayMuscle extends Component {
             </main>)
     }
 }
+
+export default DisplayMuscle

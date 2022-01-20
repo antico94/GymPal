@@ -1,9 +1,8 @@
 import React, {Component} from "react";
-import './home.css'
-import $ from 'jquery'
+import './rotatingWords.css'
 
 
-class Homepage extends Component {
+class RotatingWords extends Component {
     intervalID = 0;
 
     componentDidMount() {
@@ -46,4 +45,4 @@ class Homepage extends Component {
     }
 }
 
-export default Homepage;
+export default RotatingWords;

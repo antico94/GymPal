@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, {useEffect, useState} from 'react';
 import "./profile.css"
 import Danutu from "../../assets/img/danutu.jpg"
 import Safe from "./../../assets/img/Medals/Safe.png"
@@ -8,9 +8,91 @@ import Smart from "./../../assets/img/Medals/Smart.png"
 import Fabulous from "./../../assets/img/Medals/Fabulous.png"
 import New from "./../../assets/img/Medals/New.png"
 import King from "./../../assets/img/Medals/Gym King.png"
+import $ from 'jquery'
 
 function Profile() {
+    
+    const [description, setDescription] = useState("");
+    const [height, setHeight] = useState("");
+    const [benchRecord, setBenchRecord] = useState("");
+    const [cardioRecord, setCardioRecord] = useState("");
+    const [name, setName] = useState("");
+    const [weight, setWeight] = useState("");
+    const [buttonText, setButtonText] = useState("");
+
+    useEffect(() => {
+        setName($(".profile-card__name").text())
+        setDescription($(".profile-card-loc__txt").text())
+        setHeight($("#currentHeight").text())
+        setWeight($("#currentWeight").text())
+        setBenchRecord($("#benchRecord").text())
+        setCardioRecord($("#cardioRecord").text())
+        setButtonText($("#edit__profile").text())
+    })
+
+    const editProfile = () => {
+        
+        
+        function ShowInputBoxes(){
+            //Show Input Boxes
+            $('.input-name').css("display", "block")
+            $('.input-description').css("display", "block")
+            $('.input-height').css("display", "block")
+            $('.input-weight').css("display", "block")
+            $('.input-bench').css("display", "block")
+            $('.input-cardio').css("display", "block")
+            
+            //Hide Actual Data
+            $(".profile-card__name").css("display", "none")
+            $(".profile-card-loc__txt").css("display", "none")
+            $("#currentHeight").css("display", "none")
+            $("#currentWeight").css("display", "none")
+            $("#benchRecord").css("display", "none")
+            $("#cardioRecord").css("display", "none")
+            
+        }
+
+        function HideInputBoxes(){
+            
+            //Hide Input Boxes
+            $('.input-name').css("display", "none")
+            $('.input-description').css("display", "none")
+            $('.input-height').css("display", "none")
+            $('.input-weight').css("display", "none")
+            $('.input-bench').css("display", "none")
+            $('.input-cardio').css("display", "none")
+            
+            
+            //Show Actual Data
+            $(".profile-card__name").css("display", "block")
+            $(".profile-card-loc__txt").css("display", "block")
+            $("#currentHeight").css("display", "block")
+            $("#currentWeight").css("display", "block")
+            $("#benchRecord").css("display", "block")
+            $("#cardioRecord").css("display", "block")
+        }
+        
+        if (buttonText === "Edit Information") {
+            $("#edit__profile").text("Save")
+            setButtonText("Save")
+            ShowInputBoxes()
+
+            
+        }
+        else {
+            $("#edit__profile").text("Edit Information")
+            setButtonText("Edit Information")
+            HideInputBoxes()
+            
+        }
+
+
+    }
+
+
     // const Medals = [Safe, Complete, Cardio, Smart, Fabulous, New]
+
+
     return (<div className="profile-page">
         <div className="wrapper">
             <div className="profile-card js-profile-card">
@@ -21,47 +103,56 @@ function Profile() {
                 </div>
 
                 <div className="profile-card__cnt js-profile-cnt">
-                    <div className="profile-card__name">Dani Mocanu</div>
+                    <div className="name-block-profile">
+                        <div className="profile-card__name">Dani Mocanu</div>
+                        <input className="input-name" placeholder={name}/>
+                    </div>
                     <div className="profile-card__txt">Member for <strong>5 days.</strong></div>
                     <div className="profile-card-loc">
-        <span className="profile-card-loc__icon">
-          <svg className="icon"><use xlinkHref="#icon-location"/></svg>
-        </span>
-
+                        
                         <span className="profile-card-loc__txt">
+
           I love to piss in the snow.
         </span>
+                        <input className="input-description" placeholder={description}/>
                     </div>
 
                     <div className="profile-card-inf">
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title">1.73</div>
+                            <div className="profile-card-inf__title" id="currentHeight">1.73</div>
+                            <input placeholder={height} className="input-height"/>
                             <div className="profile-card-inf__txt">Height</div>
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title">65</div>
+                            <div className="profile-card-inf__title" id="currentWeight">65</div>
+                            <input placeholder={weight} className="input-weight"/>
+
                             <div className="profile-card-inf__txt">Kg</div>
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title">123 Kg</div>
+                            <div className="profile-card-inf__title" id="benchRecord">123<span> Kg</span></div>
+                            <input placeholder={benchRecord} className="input-bench"/>
                             <div className="profile-card-inf__txt">BenchPress</div>
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title">85 Mins</div>
+                            <div className="profile-card-inf__title" id="cardioRecord">85<span> Mins</span></div>
+                            <input placeholder={cardioRecord} className="input-cardio"/>
                             <div className="profile-card-inf__txt">Cardio Record</div>
                         </div>
                     </div>
 
                     <div className="profile-card-social">
+                        <h3 className="achievements-title">Achievements Unlocked</h3>
                         <a
                             className="profile-card-social__item facebook" target="_blank">
           <span className="icon-font">
               <img className="icon" src={Safe} alt="safe"/>
           </span>
                         </a>
+
 
                         <a className="profile-card-social__item twitter"
                            target="_blank">
@@ -108,7 +199,10 @@ function Profile() {
                     </div>
 
                     <div className="profile-card-ctr">
-                        <button className="profile-card__button button--blue js-message-btn">Edit Information</button>
+                        <button onClick={editProfile} id="edit__profile" type="button"
+                                className="profile-card__button button--blue js-message-btn">Edit
+                            Information
+                        </button>
                         <button className="profile-card__button button--orange">Close</button>
                     </div>
                 </div>

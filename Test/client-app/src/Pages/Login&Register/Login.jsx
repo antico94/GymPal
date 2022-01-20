@@ -2,6 +2,7 @@
 import "./login.css"
 import $ from 'jquery'
 import {variables as API} from "../../containers/Variables";
+import app from "../../App";
 
 
 const Login = () => {
@@ -10,9 +11,11 @@ const Login = () => {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         const response = await fetch(API.LOGIN, {
-            method: "POST", headers: {"Content-Type": "Application/json"}, body: JSON.stringify({email, password})
+            method: "POST",
+            headers: {"Content-Type": "Application/json"}, body: JSON.stringify({email, password})
         });
         const content = await response.json();
+        debugger;
         if (content.Name !== undefined) {
             LoginSuccess(content.Name)
         } else LoginFailed();

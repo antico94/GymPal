@@ -61,7 +61,8 @@ public class AuthController : Controller
         }
 
         var jwt = _jwtService.Generate(user.Id);
-        Response.Cookies.Append("jwt", jwt, new CookieOptions {HttpOnly = true});
+        Response.Cookies.Append("jwt", jwt, new CookieOptions {HttpOnly = true,  SameSite = SameSiteMode.None , Secure = true});
+        
 
         return CreatedAtAction("Login", new {id = user.Id}, user);
     }

@@ -46,14 +46,15 @@ class DisplayMuscle extends Component {
             //     type: "POST",
             //     data: JSON.stringify(list),
             //     success: function (mydata) {
-            //         window.location.href = "/Exercise/Test"
+            //         console.log(mydata)
+            //         // window.location.href = "/Exercise/Test"
             //     },
             //     error: function (error) {
             //         // console.log(error)
             //         alert('failed, error ' + error.status);
             //     }
             // });
-            console.log(list)
+            // console.log(list)
 
         }
 

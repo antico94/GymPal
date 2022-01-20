@@ -434,3 +434,16 @@
     position: relative;
     top: 30px;
 }
+
+img[data-locked]{
+    opacity: 10%;
+}
+
+.modal-dialog{
+    position: relative;
+    top: 15px;
+}
+
+.profile-page{
+    height: 80%;
+}

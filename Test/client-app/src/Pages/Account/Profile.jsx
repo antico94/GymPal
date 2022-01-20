@@ -2,51 +2,90 @@
 import "./profile.css"
 import Danutu from "../../assets/img/danutu.jpg"
 import Safe from "./../../assets/img/Medals/Safe.png"
-import Complete from "./../../assets/img/Medals/Completed Workouts.png"
-import Cardio from "./../../assets/img/Medals/Cardio King.png"
+import Complete from "./../../assets/img/Medals/Complete.png"
+import Cardio from "./../../assets/img/Medals/Cardio.png"
 import Smart from "./../../assets/img/Medals/Smart.png"
 import Fabulous from "./../../assets/img/Medals/Fabulous.png"
 import New from "./../../assets/img/Medals/New.png"
-import King from "./../../assets/img/Medals/Gym King.png"
+import King from "./../../assets/img/Medals/King.png"
 import $ from 'jquery'
+import {variables as HardCodedData} from "../../containers/ProfileDummyData";
 
 function Profile() {
 
-    const HardCodedData = {
-        Name : "Dani Mocanu",
-        Description: "I love to piss in the snow",
-        Height : "1.73",
-        Weight: "65",
-        BenchPressRecord: "123",
-        CardioRecord: "85"
-    }
-    
     const [name, setName] = useState(HardCodedData.Name);
     const [description, setDescription] = useState(HardCodedData.Description);
-    const [height, setHeight] = useState(HardCodedData.Weight);
+    const [height, setHeight] = useState(HardCodedData.Height);
     const [weight, setWeight] = useState(HardCodedData.Weight);
     const [benchRecord, setBenchRecord] = useState(HardCodedData.BenchPressRecord);
     const [cardioRecord, setCardioRecord] = useState(HardCodedData.CardioRecord);
-
-
     const [buttonText, setButtonText] = useState("");
 
-    // useEffect(() => {
-    //     setName($(".profile-card__name").text())
-    //     setDescription($(".profile-card-loc__txt").text())
-    //     setHeight($("#currentHeight").text())
-    //     setWeight($("#currentWeight").text())
-    //     setBenchRecord($("#benchRecord").text())
-    //     setCardioRecord($("#cardioRecord").text())
-    //     setButtonText($("#edit__profile").text())
-    // })
+
+    //Medals
+    // const Medals = [Safe, Complete, Cardio, Smart, Fabulous, New, King]
+    const [safeUnlocked, setSafeUnlocked] = useState(HardCodedData.HasCompletedHSA);
+    const [completedUnlocked, setCompletedUnlocked] = useState(HardCodedData.HasCompletedProfile);
+    const [cardioUnlocked, setCardioUnlocked] = useState(HardCodedData.HasOver1000Cardio);
+    const [smartUnlocked, setSmartUnlocked] = useState(HardCodedData.HasNotExceededRecommendedWeight);
+    const [fabulousUnlocked, setFabulousUnlocked] = useState(HardCodedData.HasProfilePicture);
+    const [newUnlocked, setNewUnlocked] = useState(true);
+    const [kingUnlocked, setKingUnlocked] = useState(HardCodedData.IsTop10);
+
+    const Bindings = {
+        Safe: safeUnlocked,
+        Complete: completedUnlocked,
+        Cardio: cardioUnlocked,
+        Smart: smartUnlocked,
+        Fabulous: fabulousUnlocked,
+        New: newUnlocked,
+        King: kingUnlocked
+    }
+
+    
+    const Medals = () => {
+        const icons = document.querySelectorAll('.icon')
+        for (let i = 0; i < icons.length; i++) {
+            let temp = icons[i].src.slice(35, icons[i].src.length - 13)
+            console.log(Bindings[temp])
+            if (!Bindings[temp]) {
+                icons[i].setAttribute('data-locked', '')
+            }
+        }
+    }
+
+
+    useEffect(() => {
+        Medals()
+    })
+
+    const ModalBindings = {
+        Safe: ["Always safe" + (Bindings["Safe"] ? " (Unlocked)" : " (Locked)") , "User has completed Health and safety Questionnaire."],
+        Complete: ["Completed Profile"+ (Bindings["Complete"] ? " (Unlocked)" : " (Locked)") , "User has completed his profile details."],
+        Cardio: ["Cardio Beast"+ (Bindings["Cardio"] ? " (Unlocked)" : " (Locked)") , "User has cumulated over 1000 Minutes of Cardio"],
+        Smart: ["Smart-ass"+ (Bindings["Smart"] ? " (Unlocked)" : " (Locked)") , "User did not exceeded the maximum Weight recommended."],
+        Fabulous: ["I'm Fabulous!"+ (Bindings["Fabulous"] ? " (Unlocked)" : " (Locked)") , "User uploaded a profile picture."],
+        New: ["Driven"+ (Bindings["New"] ? " (Unlocked)" : " (Locked)") , "User has found the motivation start pumping."],
+        King: ["Gym King"+ (Bindings["King"] ? " (Unlocked)" : " (Locked)") , "User is in top 10 Leaderboard of Cardio or Bench."],
+    }
+
+    $(document).ready(function () {
+
+        "use strict";
+
+        $(".icon").hover(
+            function () {
+                let modalTitle = $("#modal-title-profile")
+                let modalDescription = $("#modal-description-profile")
+                modalTitle.text(ModalBindings[this.src.slice(35, this.src.length - 13)][0])
+                modalDescription.text(ModalBindings[this.src.slice(35, this.src.length - 13)][1])
+            });
+    });
+
 
     const editProfile = () => {
-        
 
-        
-        
-        function ShowInputBoxes(){
+        function ShowInputBoxes() {
             //Show Input Boxes
             $('.input-name').css("display", "block")
             $('.input-description').css("display", "block")
@@ -54,7 +93,7 @@ function Profile() {
             $('.input-weight').css("display", "block")
             $('.input-bench').css("display", "block")
             $('.input-cardio').css("display", "block")
-            
+
             //Hide Actual Data
             $(".profile-card__name").css("display", "none")
             $(".profile-card-loc__txt").css("display", "none")
@@ -62,11 +101,12 @@ function Profile() {
             $("#currentWeight").css("display", "none")
             $("#benchRecord").css("display", "none")
             $("#cardioRecord").css("display", "none")
-            
+
         }
 
-        function HideInputBoxes(){
-            
+        function HideInputBoxes() {
+
+
             //Hide Input Boxes
             $('.input-name').css("display", "none")
             $('.input-description').css("display", "none")
@@ -74,8 +114,8 @@ function Profile() {
             $('.input-weight').css("display", "none")
             $('.input-bench').css("display", "none")
             $('.input-cardio').css("display", "none")
-            
-            
+
+
             //Show Actual Data
             $(".profile-card__name").css("display", "block")
             $(".profile-card-loc__txt").css("display", "block")
@@ -84,26 +124,19 @@ function Profile() {
             $("#benchRecord").css("display", "block")
             $("#cardioRecord").css("display", "block")
         }
-        
+
         if (buttonText === "Edit Information") {
             $("#edit__profile").text("Save")
             setButtonText("Save")
             ShowInputBoxes()
 
-            
-        }
-        else {
+        } else {
             $("#edit__profile").text("Edit Information")
             setButtonText("Edit Information")
             HideInputBoxes()
-            
+
         }
-
-
     }
-
-
-    // const Medals = [Safe, Complete, Cardio, Smart, Fabulous, New]
 
 
     return (<div className="profile-page">
@@ -118,7 +151,7 @@ function Profile() {
                 <div className="profile-card__cnt js-profile-cnt">
                     <div className="name-block-profile">
                         <div className="profile-card__name">{name}</div>
-                        <input onChange={e=>setName(e.target.value)} className="input-name" placeholder={name}/>
+                        <input onChange={e => setName(e.target.value)} className="input-name" placeholder={name}/>
                     </div>
                     <div className="profile-card__txt">Member for <strong>5 days.</strong></div>
                     <div className="profile-card-loc">
@@ -127,32 +160,39 @@ function Profile() {
 
           {description}
         </span>
-                        <input onChange={e=>setDescription(e.target.value)} className="input-description" placeholder={description}/>
+                        <input onChange={e => setDescription(e.target.value)} className="input-description"
+                               placeholder={description}/>
                     </div>
 
                     <div className="profile-card-inf">
                         <div className="profile-card-inf__item">
                             <div className="profile-card-inf__title" id="currentHeight">{height}</div>
-                            <input onChange={e=>setHeight(e.target.value)} placeholder={height} className="input-height"/>
+                            <input onChange={e => setHeight(e.target.value)} placeholder={height}
+                                   className="input-height"/>
                             <div className="profile-card-inf__txt">Height</div>
                         </div>
 
                         <div className="profile-card-inf__item">
                             <div className="profile-card-inf__title" id="currentWeight">{weight}</div>
-                            <input onChange={e=>setWeight(e.target.value)} placeholder={weight} className="input-weight"/>
+                            <input onChange={e => setWeight(e.target.value)} placeholder={weight}
+                                   className="input-weight"/>
 
                             <div className="profile-card-inf__txt">Kg</div>
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="benchRecord">{benchRecord}<span> Kg</span></div>
-                            <input onChange={e=>setBenchRecord(e.target.value)} placeholder={benchRecord} className="input-bench"/>
+                            <div className="profile-card-inf__title" id="benchRecord">{benchRecord}<span> Kg</span>
+                            </div>
+                            <input onChange={e => setBenchRecord(e.target.value)} placeholder={benchRecord}
+                                   className="input-bench"/>
                             <div className="profile-card-inf__txt">BenchPress</div>
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="cardioRecord">{cardioRecord}<span> Mins</span></div>
-                            <input onChange={e=>setCardioRecord(e.target.value)} placeholder={cardioRecord} className="input-cardio"/>
+                            <div className="profile-card-inf__title" id="cardioRecord">{cardioRecord}<span> Mins</span>
+                            </div>
+                            <input onChange={e => setCardioRecord(e.target.value)} placeholder={cardioRecord}
+                                   className="input-cardio"/>
                             <div className="profile-card-inf__txt">Cardio Record</div>
                         </div>
                     </div>
@@ -191,7 +231,7 @@ function Profile() {
                         <a className="profile-card-social__item github"
                            target="_blank">
           <span className="icon-font">
-              <img className="icon" src={Fabulous} alt="fab"/>
+              <img className="icon" src={Fabulous} id="test" alt="fab"/>
           </span>
                         </a>
 
@@ -210,7 +250,14 @@ function Profile() {
                         </a>
 
                     </div>
-
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content rounded-4 shadow" id="inside-modal">
+                            <div className="modal-body p-4 text-center">
+                                <h5 id="modal-title-profile" className="mb-0">Title</h5>
+                                <p id="modal-description-profile" className="mb-0">A big fucking description.</p>
+                            </div>
+                        </div>
+                    </div>
                     <div className="profile-card-ctr">
                         <button onClick={editProfile} id="edit__profile" type="button"
                                 className="profile-card__button button--blue js-message-btn">Edit
@@ -219,29 +266,7 @@ function Profile() {
                         <button className="profile-card__button button--orange">Close</button>
                     </div>
                 </div>
-
-                <div className="profile-card-message js-message">
-                    <form className="profile-card-form">
-                        <div className="profile-card-form__container">
-                            <textarea placeholder="Say something..."/>
-                        </div>
-
-                        <div className="profile-card-form__bottom">
-                            <button className="profile-card__button button--blue js-message-close">
-                                Send
-                            </button>
-
-                            <button className="profile-card__button button--gray js-message-close">
-                                Cancel
-                            </button>
-                        </div>
-                    </form>
-
-                    <div className="profile-card__overlay js-message-close"/>
-                </div>
-
             </div>
-
         </div>
     </div>);
 }

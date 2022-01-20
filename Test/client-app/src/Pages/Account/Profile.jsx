@@ -81,7 +81,10 @@ function Profile() {
                 modalDescription.text(ModalBindings[this.src.slice(35, this.src.length - 13)][1])
             });
     });
-
+    
+    const closeMenu = () =>{
+        window.location.href="/"
+    }
 
     const editProfile = () => {
 
@@ -263,7 +266,7 @@ function Profile() {
                                 className="profile-card__button button--blue js-message-btn">Edit
                             Information
                         </button>
-                        <button className="profile-card__button button--orange">Close</button>
+                        <button onClick={closeMenu} className="profile-card__button button--orange">Close</button>
                     </div>
                 </div>
             </div>

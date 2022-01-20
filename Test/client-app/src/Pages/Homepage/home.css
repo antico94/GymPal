@@ -267,7 +267,7 @@
     }
 }
 
-.video-player{
+.video-player {
     position: fixed;
     height: 100%;
     top: 37%;
@@ -283,24 +283,24 @@
 }
 
 
-#logo-png{
+#logo-png {
     transform: scale(0.8);
     position: relative;
     width: 1000px;
     height: 1000px;
-    top:-100px;
+    top: -100px;
     left: -500px;
 }
 
 
-.homepage-test .section-c{
+.homepage-test .section-c {
     padding: 0;
     display: inline-flex;
     width: 100%;
     height: 100%;
 }
 
-.homepage-test .section-c .container{
+.homepage-test .section-c .container {
     width: 100%;
     height: 100%;
 }
@@ -309,18 +309,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&family=Nunito:ital,wght@1,600&display=swap');
 
 
-
-.custom-color-blue{
+.custom-color-blue {
     color: #00bbff;
     font-family: 'Nunito', sans-serif;
 }
 
-.custom-color-red{
+.custom-color-red {
     color: #e5565d;
     font-family: 'Nunito', sans-serif;
 
 }
 
-#footer-button{
+#footer-button {
     color: lightgrey;
 }

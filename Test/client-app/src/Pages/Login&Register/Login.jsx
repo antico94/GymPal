@@ -15,7 +15,6 @@ const Login = () => {
             headers: {"Content-Type": "Application/json"}, body: JSON.stringify({email, password})
         });
         const content = await response.json();
-        debugger;
         if (content.Name !== undefined) {
             LoginSuccess(content.Name)
         } else LoginFailed();

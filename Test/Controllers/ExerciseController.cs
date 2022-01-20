@@ -142,10 +142,19 @@ namespace Test.Controllers
         [HttpPost]
         public ActionResult<ICollection<Exercise>> GetExercisesFromMusclesSelected(List<int> musclesId)
         {
-            // var exercises = _context.Exercises.Include(m => m.MusclesTrained).
-            //     Where(x => !musclesId.Except(x.MusclesTrained.Select(o => o.Id)).Any()).ToList();
-            var result = new List<Exercise>();
-            return result;
+            var exercises = new List<Exercise>();
+            var muscles = GetMusclesByListOfIds(musclesId);
+            foreach (var muscle in muscles)
+            {
+                var temp = (_context.Exercises.Where(m=>m.MusclesTrained.Select(z=>z.Id).Contains(muscle.Id))).ToList();
+                foreach (var exercise in temp)
+                {
+                    exercises.Add(exercise);
+                }
+            }
+            
+            
+            return Ok(exercises);
         }
     }
 }

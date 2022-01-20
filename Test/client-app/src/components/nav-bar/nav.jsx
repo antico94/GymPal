@@ -25,9 +25,6 @@ class TestNav extends Component {
                         <li><Link to="/DisplayMuscle"><a>Muscle Selector</a></Link></li>
                         <li><Link to="/login"><a>Login</a></Link></li>
                         <li><Link to="/register"><a>Register</a></Link></li>
-                        {/*<div className="button-container">*/}
-                        {/*    <div className='button -dark center'>Login/Register</div>*/}
-                        {/*</div>*/}
                     </ul>
                 </div>
             </nav>

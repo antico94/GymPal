@@ -9,7 +9,7 @@ class RotatingWords extends Component {
         
         this.intervalID = setInterval(function () {
             const show = document.querySelector('span[data-show]')
-            const next = show.nextElementSibling || document.querySelector('span:first-child')
+            const next = show.nextElementSibling || document.getElementsByClassName("rotating-words-span")[0]
             const up = document.querySelector('span[data-up]')
 
             if (up) {
@@ -18,8 +18,9 @@ class RotatingWords extends Component {
 
             show.removeAttribute('data-show')
             show.setAttribute('data-up', '')
-
             next.setAttribute('data-show', '')
+            
+            
         }, 2000)
     }
 
@@ -38,7 +39,7 @@ class RotatingWords extends Component {
                         <span className="rotating-words-span" data-show="">is easy to use</span>
                         <span className="rotating-words-span" >increases acountability</span>
                         <span className="rotating-words-span" >tracks your progress</span>
-                        <span className="rotating-words-span" >helps seting goals</span>
+                        <span className="rotating-words-span" >helps setting goals</span>
                     </div>
                 </h2>
             </div>);

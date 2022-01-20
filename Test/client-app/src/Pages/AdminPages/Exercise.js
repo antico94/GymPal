@@ -146,7 +146,7 @@ class Exercise extends Component {
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
                         onClick={() => this.addClick()}>
-                    Add Muscle
+                    Add Exercise
                 </button>
                 <h3 className="d-flex justify-content-center m-3">Exercise Page</h3>
                 <table className="table table-striped">

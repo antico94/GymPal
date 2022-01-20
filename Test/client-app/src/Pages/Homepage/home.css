@@ -82,6 +82,11 @@
     animation: anime 1s ease-in-out;
 }
 
+.homepage-test .section-a .container div p{
+    color: #000000;
+    font-weight: 400;
+}
+
 @keyframes anime {
     0% {
         left: 100%;

@@ -21,21 +21,24 @@
 
 .login-page {
     font-family: 'Source Sans Pro', sans-serif;
-    color: white;
+    color: #050505;
+
     font-weight: 300;
 }
 
 .login-page ::-webkit-input-placeholder {
     /* WebKit browsers */
     font-family: 'Source Sans Pro', sans-serif;
-    color: white;
+    color: #050505;
+
     font-weight: 300;
 }
 
 .login-page :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
     font-family: 'Source Sans Pro', sans-serif;
-    color: white;
+    color: #050505;
+
     opacity: 1;
     font-weight: 300;
 }
@@ -43,7 +46,8 @@
 .login-page ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
     font-family: 'Source Sans Pro', sans-serif;
-    color: white;
+    color: #050505;
+
     opacity: 1;
     font-weight: 300;
 }
@@ -51,7 +55,7 @@
 .login-page :-ms-input-placeholder {
     /* Internet Explorer 10+ */
     font-family: 'Source Sans Pro', sans-serif;
-    color: white;
+    color: #050505;
     font-weight: 300;
 }
 
@@ -106,7 +110,7 @@
     display: block;
     text-align: center;
     font-size: 18px;
-    color: white;
+    color: blueviolet;
     transition-duration: 0.25s;
     font-weight: 300;
 }

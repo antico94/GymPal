@@ -4,6 +4,7 @@ namespace Test.Models.UserModels;
 
 public class User
 {
+    public UserProfile Profile { get; set; }
     public int Id { get; set; }
     public string Name { get; set; }
     public string Email { get; set; }

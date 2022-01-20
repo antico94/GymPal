@@ -1,17 +1,17 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import TestNav from "./components/alternative-nav/nav";
 import React from "react";
 import Login from "./Pages/Login&Register/Login";
 import Register from "./Pages/Login&Register/Register";
 import {AdminExercise, AdminMuscle, Profile, DisplayMuscles, Homepage} from "./Pages";
+import Nav from "./components/nav-bar/nav";
 
 
 function App() {
 
     return (<Router>
         <div className="App">
-            <TestNav/>
+            <Nav/>
             <Routes>
                 <Route path="/" element={<Homepage/>}/>
                 <Route path="/login" element={<Login/>}/>

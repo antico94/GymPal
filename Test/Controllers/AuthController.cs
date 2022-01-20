@@ -33,6 +33,17 @@ public class AuthController : Controller
 
             _repository.Users.Add(user);
             await _repository.SaveChangesAsync();
+            
+            var userProfile = new UserProfile
+            {
+                UserId = user.Id,
+                DateJoined = DateTime.Now,
+                Name = dto.Name,
+                Description = "No description yet"
+            };
+
+            _repository.Profiles.Add(userProfile);
+            await _repository.SaveChangesAsync();
 
             return CreatedAtAction("Register", new {id = user.Id}, user);
         }

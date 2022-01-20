@@ -11,26 +11,39 @@ import King from "./../../assets/img/Medals/Gym King.png"
 import $ from 'jquery'
 
 function Profile() {
+
+    const HardCodedData = {
+        Name : "Dani Mocanu",
+        Description: "I love to piss in the snow",
+        Height : "1.73",
+        Weight: "65",
+        BenchPressRecord: "123",
+        CardioRecord: "85"
+    }
     
-    const [description, setDescription] = useState("");
-    const [height, setHeight] = useState("");
-    const [benchRecord, setBenchRecord] = useState("");
-    const [cardioRecord, setCardioRecord] = useState("");
-    const [name, setName] = useState("");
-    const [weight, setWeight] = useState("");
+    const [name, setName] = useState(HardCodedData.Name);
+    const [description, setDescription] = useState(HardCodedData.Description);
+    const [height, setHeight] = useState(HardCodedData.Weight);
+    const [weight, setWeight] = useState(HardCodedData.Weight);
+    const [benchRecord, setBenchRecord] = useState(HardCodedData.BenchPressRecord);
+    const [cardioRecord, setCardioRecord] = useState(HardCodedData.CardioRecord);
+
+
     const [buttonText, setButtonText] = useState("");
 
-    useEffect(() => {
-        setName($(".profile-card__name").text())
-        setDescription($(".profile-card-loc__txt").text())
-        setHeight($("#currentHeight").text())
-        setWeight($("#currentWeight").text())
-        setBenchRecord($("#benchRecord").text())
-        setCardioRecord($("#cardioRecord").text())
-        setButtonText($("#edit__profile").text())
-    })
+    // useEffect(() => {
+    //     setName($(".profile-card__name").text())
+    //     setDescription($(".profile-card-loc__txt").text())
+    //     setHeight($("#currentHeight").text())
+    //     setWeight($("#currentWeight").text())
+    //     setBenchRecord($("#benchRecord").text())
+    //     setCardioRecord($("#cardioRecord").text())
+    //     setButtonText($("#edit__profile").text())
+    // })
 
     const editProfile = () => {
+        
+
         
         
         function ShowInputBoxes(){
@@ -104,42 +117,42 @@ function Profile() {
 
                 <div className="profile-card__cnt js-profile-cnt">
                     <div className="name-block-profile">
-                        <div className="profile-card__name">Dani Mocanu</div>
-                        <input className="input-name" placeholder={name}/>
+                        <div className="profile-card__name">{name}</div>
+                        <input onChange={e=>setName(e.target.value)} className="input-name" placeholder={name}/>
                     </div>
                     <div className="profile-card__txt">Member for <strong>5 days.</strong></div>
                     <div className="profile-card-loc">
                         
                         <span className="profile-card-loc__txt">
 
-          I love to piss in the snow.
+          {description}
         </span>
-                        <input className="input-description" placeholder={description}/>
+                        <input onChange={e=>setDescription(e.target.value)} className="input-description" placeholder={description}/>
                     </div>
 
                     <div className="profile-card-inf">
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="currentHeight">1.73</div>
-                            <input placeholder={height} className="input-height"/>
+                            <div className="profile-card-inf__title" id="currentHeight">{height}</div>
+                            <input onChange={e=>setHeight(e.target.value)} placeholder={height} className="input-height"/>
                             <div className="profile-card-inf__txt">Height</div>
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="currentWeight">65</div>
-                            <input placeholder={weight} className="input-weight"/>
+                            <div className="profile-card-inf__title" id="currentWeight">{weight}</div>
+                            <input onChange={e=>setWeight(e.target.value)} placeholder={weight} className="input-weight"/>
 
                             <div className="profile-card-inf__txt">Kg</div>
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="benchRecord">123<span> Kg</span></div>
-                            <input placeholder={benchRecord} className="input-bench"/>
+                            <div className="profile-card-inf__title" id="benchRecord">{benchRecord}<span> Kg</span></div>
+                            <input onChange={e=>setBenchRecord(e.target.value)} placeholder={benchRecord} className="input-bench"/>
                             <div className="profile-card-inf__txt">BenchPress</div>
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="cardioRecord">85<span> Mins</span></div>
-                            <input placeholder={cardioRecord} className="input-cardio"/>
+                            <div className="profile-card-inf__title" id="cardioRecord">{cardioRecord}<span> Mins</span></div>
+                            <input onChange={e=>setCardioRecord(e.target.value)} placeholder={cardioRecord} className="input-cardio"/>
                             <div className="profile-card-inf__txt">Cardio Record</div>
                         </div>
                     </div>

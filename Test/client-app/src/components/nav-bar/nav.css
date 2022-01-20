@@ -1,4 +1,4 @@
-﻿.navbar .container {
+.navbar .container {
     margin: 10px auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);

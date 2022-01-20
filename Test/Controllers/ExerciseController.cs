@@ -140,11 +140,12 @@ namespace Test.Controllers
 
         [Route("GetExercisesFromMusclesSelected")]
         [HttpPost]
-        public ActionResult<IEnumerable<Exercise>> GetExercisesFromMusclesSelected(List<int> musclesId)
+        public ActionResult<ICollection<Exercise>> GetExercisesFromMusclesSelected(List<int> musclesId)
         {
-            var exercises = _context.Exercises.Include(m => m.MusclesTrained);
-            var result = new List<Exercise>();
-            return result;
+            var exercises = _context.Exercises.Include(m => m.MusclesTrained).
+                Where(x => !musclesId.Except(x.MusclesTrained.Select(o => o.Id)).Any()).ToList();
+            // var result = new List<Exercise>();
+            return exercises;
         }
     }
 }

@@ -12,6 +12,7 @@ public class UserContext : DbContext
     }
         
     public DbSet<User> Users { get; set; }
+    public DbSet<UserProfile> Profiles { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

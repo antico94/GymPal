@@ -1,6 +1,7 @@
 ﻿.idea
 .appsettings.json
 .appsettings.json.Development.json
+./client-app/node_modules
 # Created by https://www.toptal.com/developers/gitignore/api/react,windows,csharp
 # Edit at https://www.toptal.com/developers/gitignore?templates=react,windows,csharp
 

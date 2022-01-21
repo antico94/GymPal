@@ -1,9 +1,60 @@
-﻿import React, {Component, useState} from "react";
+﻿import React, {Component} from "react";
 import $ from "jquery";
 import './displayMuscle.css'
-import {variables as API} from "../../containers/Variables";
+import {ExercisesResult} from "../index";
 
 class DisplayMuscle extends Component {
+    state = {
+        dataLoaded: false,
+        data : []
+    };
+
+     GetSelectedData = () => {
+        const query = $('input[type=checkbox]:checked').map(function () {
+            return this.id;
+        }).get();
+        let converted = this.convertNamesIntoIds(query);
+         this.SendData(converted).then(res=>console.log("res is " + res))
+    }
+
+    async SendData(list) {
+        const response = await fetch('https://localhost:8001/api/Exercise/GetExercisesFromMusclesSelected', {
+            method: "POST", headers: {"Content-Type": "Application/json"}, body: JSON.stringify(list)
+        });
+        const content = await response.json();
+        // let info = []
+        // content.forEach(e=>info.push(e.Name))
+        this.setState({
+            dataLoaded: true,
+            data : [content]
+        })
+        // console.log(content)
+    }
+
+     convertNamesIntoIds(list) {
+        const muscleDictionary = {
+            'biceps': 1,
+            'deltoids': 2,
+            'forearms': 3,
+            'triceps': 4,
+            'trapezius': 5,
+            'lats': 6,
+            'abs': 7,
+            'obliques': 8,
+            'pectorals': 9,
+            'adductors': 10,
+            'calves': 11,
+            'hamstrings': 12,
+            'glutes': 13,
+            'quads': 14
+        }
+        let convertedList = [];
+        list.forEach(el => convertedList.push(muscleDictionary[el]))
+        return convertedList
+    }
+    
+    
+    
 
     componentDidMount() {
         document.querySelectorAll(".muscle-groups svg g g[id]").forEach(function (group) {
@@ -34,53 +85,16 @@ class DisplayMuscle extends Component {
                 input.checked = !input.checked
             });
         })
-
-        let button = document.getElementById('train-button');
-        button.addEventListener('click', function () {
-            GetSelectedData()
-        })
-
-        async function SendData(list) {
-            const response = await fetch('https://localhost:8001/api/Exercise/GetExercisesFromMusclesSelected', {
-                method: "POST", headers: {"Content-Type": "Application/json"}, body: JSON.stringify(list)
-            });
-            const content = await response.json();
-            console.log(content)
-
-        }
-
-        function convertNamesIntoIds(list) {
-            const muscleDictionary = {
-                'biceps': 1,
-                'deltoids': 2,
-                'forearms': 3,
-                'triceps': 4,
-                'trapezius': 5,
-                'lats': 6,
-                'abs': 7,
-                'obliques': 8,
-                'pectorals': 9,
-                'adductors': 10,
-                'calves': 11,
-                'hamstrings': 12,
-                'glutes': 13,
-                'quads': 14
-            }
-            let convertedList = [];
-            list.forEach(el => convertedList.push(muscleDictionary[el]))
-            return convertedList
-        }
-
-        function GetSelectedData() {
-            const query = $('input[type=checkbox]:checked').map(function () {
-                return this.id;
-            }).get();
-            let converted = convertNamesIntoIds(query)
-            SendData(converted).then(res=>console.log("res is " + res))
-        }
     }
 
     render() {
+         
+         if (this.state.dataLoaded){
+             return (<ExercisesResult props={this.state.data}/>)
+         }
+         
+         else {
+         
 
         return (<main>
             <div className="container" id="sex">
@@ -293,13 +307,13 @@ class DisplayMuscle extends Component {
                     </div>
                     <div className="col-6 col-lg-6 background" id="train-div">
                         <h1 className="display-2 showing">Select the muscles you want to train!</h1>
-                        <button type="button" className="btn btn-dark" id="train-button">Done</button>
+                        <button onClick={this.GetSelectedData.bind(this)} type="button" className="btn btn-dark" id="train-button">Done</button>
                     </div>
                 </div>
 
             </div>
         </main>)
     }
-}
+}}
 
 export default DisplayMuscle

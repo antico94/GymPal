@@ -2,7 +2,6 @@
 import "./login.css"
 import $ from 'jquery'
 import {variables as API} from "../../containers/Variables";
-import app from "../../App";
 
 
 const Login = () => {

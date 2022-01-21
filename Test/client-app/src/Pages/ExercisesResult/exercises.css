@@ -1,0 +1,8 @@
+﻿.tampit{
+    display: flex;
+    flex-direction: column;
+}
+
+#add-to-workout button:hover{
+    background-color: #0ec15d;
+}

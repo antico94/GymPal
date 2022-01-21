@@ -74,9 +74,6 @@ class Exercise extends Component {
 
 
     updateClick() {
-        // console.log(this.state.Id)
-        // console.log(this.state.Name)
-        // console.log(this.state.selectedOptions)
         fetch(API.EXERCISE + "/" + this.state.Id, {
             method: 'PUT', headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json'
@@ -227,24 +224,16 @@ class Exercise extends Component {
                                 <div className="input-group mb-3">
                                     <span className="input-group-text">Muscle</span>
                                     <div className="col-md-auto">
-
-                                        {/*<CustomSelect*/}
-                                        {/*    options={this.convertOptions(muscles)}*/}
-                                        {/*    selectedOption={selectedOptions}*/}
-                                        {/*    className="form-control"*/}
-                                        {/*    isMulti={true}*/}
-                                        {/*    defaultValue = {this.convertOptions(muscles)[0]}*/}
-                                        {/*    onChange={this.onChangeSelect.bind(this)}/>*/}
-
+                                        
 
                                         <MuscleMultiSelect
                                             options={this.convertOptions(muscles)}
                                             selectedOption={this.convertOptions(muscles)[0]}
                                             className="form-control"
                                             isMulti={true}
-                                            defaultValue = {this.convertOptions(muscles)[0]}
+                                            defaultValue={this.convertOptions(muscles)[0]}
                                             onChange={this.onChangeSelect.bind(this)}/>
-                                        
+
 
                                     </div>
                                 </div>

@@ -16,4 +16,10 @@ public class UserProfile
     public string? Weight { get; set; }
     public string? BenchPressRecord { get; set; }
     public string? CardioRecord { get; set; }
+    // public bool HasCompletedHsa { get; set; }
+    // public bool HasCompletedProfile { get; set; }
+    // public bool HasOver1000Cardio { get; set; }
+    // public bool HasNotExceededRecommenderWeight { get; set; }
+    // public bool HasProfilePicture { get; set; }
+    // public bool IsTop10 { get; set; }
 }

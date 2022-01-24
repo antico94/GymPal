@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using Test.Helper;
@@ -19,14 +20,14 @@ builder.Services.AddDbContext<MuscleContext>(options =>
 
 builder.Services.AddDbContext<UserContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("UserConnection")));
-
 builder.Services.AddSwaggerGen();
 //Enable CORS
 builder.Services.AddCors(c =>
     c.AddPolicy("AllowOrigin", options => options
         .SetIsOriginAllowed(_=>true)
         // .AllowAnyOrigin()
-        .AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
+        .AllowAnyMethod().AllowAnyHeader().AllowCredentials().SetIsOriginAllowedToAllowWildcardSubdomains()));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,7 +46,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.UseRouting();

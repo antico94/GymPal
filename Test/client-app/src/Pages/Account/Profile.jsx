@@ -10,8 +10,22 @@ import New from "./../../assets/img/Medals/New.png"
 import King from "./../../assets/img/Medals/King.png"
 import $ from 'jquery'
 import {variables as HardCodedData} from "../../containers/ProfileDummyData";
+import {variables as API} from "../../containers/Variables";
 
 function Profile() {
+
+
+    useEffect(() => {
+        (
+            async () => {
+                await fetch("https://localhost:8001/api/user", {
+                    headers: {"Content-Type": "Application/json"},
+                    credentials: 'same-origin',
+                });
+            }
+        )();
+    }); 
+
 
     const [name, setName] = useState(HardCodedData.Name);
     const [description, setDescription] = useState(HardCodedData.Description);
@@ -42,7 +56,7 @@ function Profile() {
         King: kingUnlocked
     }
 
-    
+
     const Medals = () => {
         const icons = document.querySelectorAll('.icon')
         for (let i = 0; i < icons.length; i++) {
@@ -60,13 +74,13 @@ function Profile() {
     })
 
     const ModalBindings = {
-        Safe: ["Always safe" + (Bindings["Safe"] ? " (Unlocked)" : " (Locked)") , "User has completed Health and safety Questionnaire."],
-        Complete: ["Completed Profile"+ (Bindings["Complete"] ? " (Unlocked)" : " (Locked)") , "User has completed his profile details."],
-        Cardio: ["Cardio Beast"+ (Bindings["Cardio"] ? " (Unlocked)" : " (Locked)") , "User has cumulated over 1000 Minutes of Cardio"],
-        Smart: ["Smart-ass"+ (Bindings["Smart"] ? " (Unlocked)" : " (Locked)") , "User did not exceeded the maximum Weight recommended."],
-        Fabulous: ["I'm Fabulous!"+ (Bindings["Fabulous"] ? " (Unlocked)" : " (Locked)") , "User uploaded a profile picture."],
-        New: ["Driven"+ (Bindings["New"] ? " (Unlocked)" : " (Locked)") , "User has found the motivation start pumping."],
-        King: ["Gym King"+ (Bindings["King"] ? " (Unlocked)" : " (Locked)") , "User is in top 10 Leaderboard of Cardio or Bench."],
+        Safe: ["Always safe" + (Bindings["Safe"] ? " (Unlocked)" : " (Locked)"), "User has completed Health and safety Questionnaire."],
+        Complete: ["Completed Profile" + (Bindings["Complete"] ? " (Unlocked)" : " (Locked)"), "User has completed his profile details."],
+        Cardio: ["Cardio Beast" + (Bindings["Cardio"] ? " (Unlocked)" : " (Locked)"), "User has cumulated over 1000 Minutes of Cardio"],
+        Smart: ["Smart-ass" + (Bindings["Smart"] ? " (Unlocked)" : " (Locked)"), "User did not exceeded the maximum Weight recommended."],
+        Fabulous: ["I'm Fabulous!" + (Bindings["Fabulous"] ? " (Unlocked)" : " (Locked)"), "User uploaded a profile picture."],
+        New: ["Driven" + (Bindings["New"] ? " (Unlocked)" : " (Locked)"), "User has found the motivation start pumping."],
+        King: ["Gym King" + (Bindings["King"] ? " (Unlocked)" : " (Locked)"), "User is in top 10 Leaderboard of Cardio or Bench."],
     }
 
     $(document).ready(function () {
@@ -81,9 +95,9 @@ function Profile() {
                 modalDescription.text(ModalBindings[this.src.slice(35, this.src.length - 13)][1])
             });
     });
-    
-    const closeMenu = () =>{
-        window.location.href="/"
+
+    const closeMenu = () => {
+        window.location.href = "/"
     }
 
     const editProfile = () => {
@@ -108,7 +122,6 @@ function Profile() {
         }
 
         function HideInputBoxes() {
-
 
             //Hide Input Boxes
             $('.input-name').css("display", "none")
@@ -274,4 +287,4 @@ function Profile() {
     </div>);
 }
 
-export default Profile
+export default Profile;

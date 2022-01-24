@@ -14,10 +14,10 @@ const Login = () => {
             headers: {"Content-Type": "Application/json"}, body: JSON.stringify({email, password})
         });
         const content = await response.json();
-        if (content.Name !== undefined) {
-            LoginSuccess(content.Name)
+        if (content.data.Name!== "") {
+            LoginSuccess(content.data.Name)
+            document.cookie = "jwt="+content.data.jwt
         } else LoginFailed();
-
     }
 
 
@@ -29,7 +29,7 @@ const Login = () => {
         $('.wrapper').addClass('form-success');
         setTimeout(function () {
             window.location.href = "http://localhost:3000/"
-        }, 1500)
+        }, 9000)
     }
 
     const LoginFailed = () => {

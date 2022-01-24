@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Test.Helper;
+using Test.Models.GymData;
 using Test.Models.MuscleDb;
+using Test.Models.Token;
 using Test.Models.UserModels;
 using Test.Models.WebModels;
+using static Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults;
 
 namespace Test.Controllers;
 
@@ -71,20 +74,27 @@ public class AuthController : Controller
             return BadRequest(new {message = "Invalid Credentials"});
         }
 
+
         var jwt = _jwtService.Generate(user.Id);
-        Response.Cookies.Append("jwt", jwt, new CookieOptions {HttpOnly = true,  SameSite = SameSiteMode.None , Secure = true});
-        
+        Dictionary<string, string> dataReturned = new Dictionary<string, string>();
+        dataReturned.Add("jwt", jwt);
+        dataReturned.Add("Name", user.Name);
+        return Ok(new
+        {
+            data = dataReturned
+        });
+
+
 
         return CreatedAtAction("Login", new {id = user.Id}, user);
     }
 
-    [HttpGet("user")]
-    public IActionResult User()
+    [HttpPost("sex/user")]
+    public IActionResult GetUser(JwtTokenModel jwt)
     {
         try
         {
-            var jwt = Request.Cookies["jwt"];
-            var token = _jwtService.Verify(jwt);
+            var token = _jwtService.Verify(jwt.Jwt);
             int userId = int.Parse(token.Issuer);
             var user = _repository.Users.FirstOrDefault(u => u.Id == userId);
             return Ok(user);

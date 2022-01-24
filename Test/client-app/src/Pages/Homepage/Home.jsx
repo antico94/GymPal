@@ -18,18 +18,42 @@ import Features from "../../components/features/features";
 import {variables as API} from "../../containers/Variables";
 
 const Homepage = () => {
-
+    let jwt = getCookie('jwt')
     useEffect(() => {
         (
             async () => {
-                await fetch(API.USER, {
-                    method: "GET",
+                const response = await fetch("http://localhost:8000/api/sex/user", {
+                    method: "POST",
                     headers: {"Content-Type": "Application/json"},
-                    credentials: 'include'
+                    body: JSON.stringify({jwt}),
                 });
+                const result = await response.json()
+                AddObjectInCookie(result)
             }
         )();
     })
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    
+    function AddObjectInCookie(object){
+        for (const property in object) {
+            document.cookie = property + "=" + object[property]
+        }
+    }
 
     const playVideo = () => {
             let video = $('#only-video').get(0)
@@ -72,10 +96,10 @@ const Homepage = () => {
                         </div>
                     </div>
                     <div>
-                        <img src={logo} alt="apple-watch" className="full"/>
+                        <img src={logo} alt="Muscle Guy" className="full"/>
                     </div>
                     <div>
-                        <img src="https://i.ibb.co/mSXn9nR/watches-mobile.png" alt="watches-mobile"
+                        <img src={logo} alt="Muscle Guy"
                              className="mobile"/>
                     </div>
                 </div>

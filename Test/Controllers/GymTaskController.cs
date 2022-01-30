@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Test.Models.GymData;
+using Test.Models.GymData.Enums;
 using Test.Models.MuscleDb;
+using Test.Models.WebModels;
 
 namespace Test.Controllers
 {
@@ -26,6 +29,30 @@ namespace Test.Controllers
         public async Task<ActionResult<IEnumerable<GymTask>>> GetTasks()
         {
             return await _context.Tasks.ToListAsync();
+        }
+        
+        [HttpGet]
+        [Route("generate")]
+        public async Task<ActionResult> GenerateData()
+        {
+            var exercises = _context.Exercises.ToList();
+            foreach (var exercise in exercises)
+            {
+                GymTask gymTask = new GymTask()
+                {
+                    Name = exercise.Name,
+                    Exercise = exercise,
+                    TaskType = TaskType.Repetition,
+                    IsDone = false,
+                    ObjectWeight = 20,
+                    Duration = 0,
+                    Repetions = 36
+                };
+                _context.Tasks.Add(gymTask);
+                await _context.SaveChangesAsync();
+            }
+
+            return Ok();
         }
 
         // GET: api/GymTask/5
@@ -76,12 +103,32 @@ namespace Test.Controllers
         // POST: api/GymTask
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<GymTask>> PostGymTask(GymTask gymTask)
+        public async Task<ActionResult<GymTask>> PostGymTask(GymTaskWebModel webModel)
         {
-            _context.Tasks.Add(gymTask);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetGymTask", new { id = gymTask.Id }, gymTask);
+            var targetExercise = _context.Exercises.FirstOrDefault(e => e.Id == webModel.ExerciseId);
+            if (targetExercise != null)
+            {
+                GymTask gymTask = new GymTask()
+                {
+                    Name = targetExercise.Name,
+                    Exercise = targetExercise,
+                    TaskType = webModel.TaskType,
+                    IsDone = false,
+                    ObjectWeight = webModel.ObjectWeight,
+                    Duration = webModel.Duration,
+                    Repetions = webModel.Repetions
+                };
+                _context.Tasks.Add(gymTask);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new
+                {
+                    message = "smth wrong"
+                });
+            }
         }
 
         // DELETE: api/GymTask/5

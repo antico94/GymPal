@@ -24,7 +24,7 @@ public class GymTask
         set
         {
             _repetitions = value;
-            if (TaskType==TaskType.Duration)
+            if (this.TaskType==TaskType.Duration)
             {
                 _repetitions = 0;
             }

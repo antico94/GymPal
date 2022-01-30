@@ -24,7 +24,7 @@ public class GymTask
         set
         {
             _repetitions = value;
-            if (this.TaskType==TaskType.Duration)
+            if (TaskType==TaskType.Duration)
             {
                 _repetitions = 0;
             }
@@ -42,4 +42,6 @@ public class GymTask
             }
         }  // set method
     }
+
+    public bool IsDone { get; set; }
 }

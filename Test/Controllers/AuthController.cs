@@ -89,7 +89,7 @@ public class AuthController : Controller
         return CreatedAtAction("Login", new {id = user.Id}, user);
     }
 
-    [HttpPost("sex/user")]
+    [HttpPost("user")]
     public IActionResult GetUser(JwtTokenModel jwt)
     {
         try
@@ -106,6 +106,29 @@ public class AuthController : Controller
                 message = e.ToString()
             });
         }
+    }
+
+
+    [HttpPost("setProfile")]
+    public async Task<IActionResult> CompleteProfile(UserProfile profile)
+    {
+        var userProfile = _repository.Profiles.FirstOrDefault(u => u.UserId == profile.UserId);
+        if (userProfile != null)
+        {
+            userProfile.Name = profile.Name;
+            userProfile.Description = profile.Description;
+            userProfile.Height = profile.Height;
+            userProfile.Weight = profile.Weight;
+            userProfile.BenchPressRecord = profile.BenchPressRecord;
+            userProfile.CardioRecord = profile.CardioRecord;
+        }
+
+        await _repository.SaveChangesAsync();
+
+        return Ok(new
+        {
+            message = "Updated Profile Successfully"
+        });
     }
 
     [HttpPost("logout")]

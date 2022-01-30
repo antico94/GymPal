@@ -14,6 +14,10 @@
     IsTop10: false
 }
 
+export let userInfo = {
+    isUserLogged : 1
+}
+
 
 // Safe : User has completed Health and safety Questionnaire
 // Complete : User has completed his profile details

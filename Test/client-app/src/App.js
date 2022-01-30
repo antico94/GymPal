@@ -1,14 +1,18 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Login from "./Pages/Login&Register/Login";
 import Register from "./Pages/Login&Register/Register";
 import {AdminExercise, AdminMuscle, Profile, DisplayMuscles, Homepage, HealthAndSafety, ExercisesResult} from "./Pages";
 import Nav from "./components/nav-bar/nav";
+import {currentUser} from "./containers/utility";
 
 
 function App() {
-
+    const [user, setUser] = useState(null)
+    useEffect(()=>{
+        setUser(currentUser())
+    },[user])
     return (<Router>
         <div className="App">
             <Nav/>

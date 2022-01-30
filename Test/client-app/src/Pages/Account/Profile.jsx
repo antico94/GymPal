@@ -10,23 +10,9 @@ import New from "./../../assets/img/Medals/New.png"
 import King from "./../../assets/img/Medals/King.png"
 import $ from 'jquery'
 import {variables as HardCodedData} from "../../containers/ProfileDummyData";
-import {variables as API} from "../../containers/Variables";
 
 function Profile() {
-
-
-    useEffect(() => {
-        (
-            async () => {
-                await fetch("https://localhost:8001/api/user", {
-                    headers: {"Content-Type": "Application/json"},
-                    credentials: 'same-origin',
-                });
-            }
-        )();
-    }); 
-
-
+    
     const [name, setName] = useState(HardCodedData.Name);
     const [description, setDescription] = useState(HardCodedData.Description);
     const [height, setHeight] = useState(HardCodedData.Height);
@@ -45,6 +31,7 @@ function Profile() {
     const [fabulousUnlocked, setFabulousUnlocked] = useState(HardCodedData.HasProfilePicture);
     const [newUnlocked, setNewUnlocked] = useState(true);
     const [kingUnlocked, setKingUnlocked] = useState(HardCodedData.IsTop10);
+    
 
     const Bindings = {
         Safe: safeUnlocked,

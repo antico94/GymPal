@@ -3,17 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Test.Models.UserDb;
+using Test.Models.MuscleDb;
 
 #nullable disable
 
-namespace Test.Migrations.User
+namespace Test.Migrations
 {
-    [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(MuscleContext))]
+    [Migration("20220130092434_ProgressImplementation")]
+    partial class ProgressImplementation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +53,7 @@ namespace Test.Migrations.User
 
                     b.HasKey("Id");
 
-                    b.ToTable("Exercise");
+                    b.ToTable("Exercises");
                 });
 
             modelBuilder.Entity("Test.Models.GymData.GymTask", b =>
@@ -90,7 +92,7 @@ namespace Test.Migrations.User
 
                     b.HasIndex("ProgressId");
 
-                    b.ToTable("GymTask");
+                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("Test.Models.GymData.Muscle", b =>
@@ -110,7 +112,7 @@ namespace Test.Migrations.User
 
                     b.HasKey("Id");
 
-                    b.ToTable("Muscle");
+                    b.ToTable("Muscles");
                 });
 
             modelBuilder.Entity("Test.Models.Progress.Progress", b =>
@@ -124,92 +126,9 @@ namespace Test.Migrations.User
                     b.Property<DateTime>("Day")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserProgressUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("ProgressId");
 
-                    b.HasIndex("UserProgressUserId");
-
-                    b.ToTable("Progress");
-                });
-
-            modelBuilder.Entity("Test.Models.Progress.UserProgress", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
-
-                    b.Property<int>("UserId1")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId");
-
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("UserProgresses");
-                });
-
-            modelBuilder.Entity("Test.Models.UserModels.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Test.Models.UserModels.UserProfile", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BenchPressRecord")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CardioRecord")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateJoined")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Height")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Weight")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Profiles");
+                    b.ToTable("Progresses");
                 });
 
             modelBuilder.Entity("ExerciseMuscle", b =>
@@ -244,47 +163,7 @@ namespace Test.Migrations.User
 
             modelBuilder.Entity("Test.Models.Progress.Progress", b =>
                 {
-                    b.HasOne("Test.Models.Progress.UserProgress", null)
-                        .WithMany("Progresses")
-                        .HasForeignKey("UserProgressUserId");
-                });
-
-            modelBuilder.Entity("Test.Models.Progress.UserProgress", b =>
-                {
-                    b.HasOne("Test.Models.UserModels.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Test.Models.UserModels.UserProfile", b =>
-                {
-                    b.HasOne("Test.Models.UserModels.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("Test.Models.UserModels.UserProfile", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Test.Models.Progress.Progress", b =>
-                {
                     b.Navigation("Tasks");
-                });
-
-            modelBuilder.Entity("Test.Models.Progress.UserProgress", b =>
-                {
-                    b.Navigation("Progresses");
-                });
-
-            modelBuilder.Entity("Test.Models.UserModels.User", b =>
-                {
-                    b.Navigation("Profile")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

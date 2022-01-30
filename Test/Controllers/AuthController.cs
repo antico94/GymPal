@@ -3,6 +3,7 @@ using Test.Helper;
 using Test.Models.GymData;
 using Test.Models.MuscleDb;
 using Test.Models.Token;
+using Test.Models.UserDb;
 using Test.Models.UserModels;
 using Test.Models.WebModels;
 using static Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults;

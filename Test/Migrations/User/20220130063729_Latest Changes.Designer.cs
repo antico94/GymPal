@@ -13,8 +13,8 @@ using Test.Models.UserDb;
 namespace Test.Migrations.User
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20220120115631_Added UserProfile")]
-    partial class AddedUserProfile
+    [Migration("20220130063729_Latest Changes")]
+    partial class LatestChanges
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

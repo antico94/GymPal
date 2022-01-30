@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Test.Models.GymData;
-using Test.Models.GymData.Enums;
+using Test.Models.Progress;
 using Test.Models.UserModels;
 
-namespace Test.Models.MuscleDb;
+namespace Test.Models.UserDb;
 
 public class UserContext : DbContext
 {
@@ -13,6 +12,7 @@ public class UserContext : DbContext
         
     public DbSet<User> Users { get; set; }
     public DbSet<UserProfile> Profiles { get; set; }
+    public DbSet<UserProgress> UserProgresses { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

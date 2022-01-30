@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using Test.Helper;
 using Test.Models.MuscleDb;
+using Test.Models.UserDb;
 
 var builder = WebApplication.CreateBuilder(args);
 

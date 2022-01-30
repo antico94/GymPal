@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Test.Models.GymData.Enums;
 
 namespace Test.Models.GymData;
@@ -11,11 +12,13 @@ public class GymTask
     
     //Props
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Key]
     public int Id { get; set; }
     public string Name { get; set; }
     public TaskType TaskType { get; set; }
     public Exercise Exercise { get; set; }
-    public int Repetions 
+    public int ObjectWeight { get; set; }
+    public int Repetions
     {
         get => _repetitions; // get method
         set

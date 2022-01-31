@@ -1,11 +1,12 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import Login from "./Pages/Login&Register/Login";
-import Register from "./Pages/Login&Register/Register";
+import Login from "./Pages/Login&Register&Logout/Login";
+import Register from "./Pages/Login&Register&Logout/Register";
+import Logout from "./Pages/Login&Register&Logout/Register";
 import {AdminExercise, AdminMuscle, Profile, DisplayMuscles, Homepage, HealthAndSafety, ExercisesResult} from "./Pages";
 import Nav from "./components/nav-bar/nav";
-import {currentUser} from "./containers/utility";
+import {currentUser, getCookie} from "./containers/utility";
 
 
 function App() {
@@ -13,9 +14,18 @@ function App() {
     useEffect(()=>{
         setUser(currentUser())
     },[user])
+    const [userLogged, setUserLogged] = useState(false)
+    useEffect(()=>{
+
+        if (getCookie("userLoggedIn") === "true"){
+            setUserLogged(true)
+        }
+        else setUserLogged(false)
+
+    },[getCookie("userLoggedIn")])
     return (<Router>
         <div className="App">
-            <Nav/>
+            <Nav userLoggedIn={userLogged}/>
             <Routes>
                 <Route path="/" element={<Homepage/>}/>
                 <Route path="/login" element={<Login/>}/>
@@ -24,6 +34,7 @@ function App() {
                 <Route path="/Profile" element={<Profile/>}/>
                 <Route path="/HealthAndSafety" element={<HealthAndSafety/>}/>
                 <Route path="/ExercisesResult" element={<ExercisesResult/>}/>
+                <Route path="/logout" element={<Logout/>}/>
                 
                 <Route path="/admin/muscles" element={<AdminMuscle/>}/>
                 <Route path="/admin/exercises" element={<AdminExercise/>}/>

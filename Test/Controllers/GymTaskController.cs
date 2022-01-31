@@ -144,7 +144,7 @@ namespace Test.Controllers
             _context.Tasks.Remove(gymTask);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         private bool GymTaskExists(int id)

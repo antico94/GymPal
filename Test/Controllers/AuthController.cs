@@ -77,17 +77,15 @@ public class AuthController : Controller
 
 
         var jwt = _jwtService.Generate(user.Id);
+        
         Dictionary<string, string> dataReturned = new Dictionary<string, string>();
         dataReturned.Add("jwt", jwt);
         dataReturned.Add("Name", user.Name);
+        
         return Ok(new
         {
             data = dataReturned
         });
-
-
-
-        return CreatedAtAction("Login", new {id = user.Id}, user);
     }
 
     [HttpPost("user")]

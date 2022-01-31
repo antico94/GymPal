@@ -28,8 +28,9 @@ const Login = () => {
         $('form').fadeOut(500);
         $('.wrapper').addClass('form-success');
         setTimeout(function () {
+            document.cookie="userLoggedIn=true"
             window.location.href = "http://localhost:3000/"
-        }, 9000)
+        }, 500)
     }
 
     const LoginFailed = () => {

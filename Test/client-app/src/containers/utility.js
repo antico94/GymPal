@@ -5,13 +5,9 @@ export const currentUser = () => {
         fetchData().then(response=> {
             if (response.ok){
                 console.log("The user is logged in")
-                document.cookie="userLoggedIn=true"
                 response.json().then(userData=>AddObjectInCookie(userData))
             }else {
                 document.cookie="userLoggedIn=false"
-                console.log("The user is NOT logged in")
-
-
             }
         })
         return "user changed"

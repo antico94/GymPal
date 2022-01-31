@@ -1,4 +1,5 @@
-﻿using Test.Models.GymData;
+﻿using Test.Models.Enums;
+using Test.Models.GymData;
 using Test.Models.GymData.Enums;
 
 namespace Test.Models.WebModels;

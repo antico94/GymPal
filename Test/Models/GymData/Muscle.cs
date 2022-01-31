@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Test.Models.Enums;
 using Test.Models.GymData.Enums;
 
 namespace Test.Models.GymData;

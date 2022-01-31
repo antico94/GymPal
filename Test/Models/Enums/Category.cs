@@ -1,4 +1,4 @@
-﻿namespace Test.Models.GymData.Enums;
+﻿namespace Test.Models.Enums;
 
 public enum Category
 {

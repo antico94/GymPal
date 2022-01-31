@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Test.Models.GymData.Enums;
 
 namespace Test.Models.UserModels;
 

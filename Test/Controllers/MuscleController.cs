@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Test.Models.Enums;
 using Test.Models.GymData;
 using Test.Models.GymData.Enums;
 using Test.Models.MuscleDb;

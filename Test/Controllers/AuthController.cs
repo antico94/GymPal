@@ -118,8 +118,7 @@ public class AuthController : Controller
             userProfile.Description = profile.Description;
             userProfile.Height = profile.Height;
             userProfile.Weight = profile.Weight;
-            userProfile.BenchPressRecord = profile.BenchPressRecord;
-            userProfile.CardioRecord = profile.CardioRecord;
+            userProfile.Gender = profile.Gender;
         }
 
         await _repository.SaveChangesAsync();

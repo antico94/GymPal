@@ -64,7 +64,7 @@ function Profile() {
         Safe: ["Always safe" + (Bindings["Safe"] ? " (Unlocked)" : " (Locked)"), "User has completed Health and safety Questionnaire."],
         Complete: ["Completed Profile" + (Bindings["Complete"] ? " (Unlocked)" : " (Locked)"), "User has completed his profile details."],
         Cardio: ["Cardio Beast" + (Bindings["Cardio"] ? " (Unlocked)" : " (Locked)"), "User has cumulated over 1000 Minutes of Cardio"],
-        Smart: ["Smart-ass" + (Bindings["Smart"] ? " (Unlocked)" : " (Locked)"), "User did not exceeded the maximum Weight recommended."],
+        Smart: ["Back to Normal" + (Bindings["Smart"] ? " (Unlocked)" : " (Locked)"), "User got the normal BMI."],
         Fabulous: ["I'm Fabulous!" + (Bindings["Fabulous"] ? " (Unlocked)" : " (Locked)"), "User uploaded a profile picture."],
         New: ["Driven" + (Bindings["New"] ? " (Unlocked)" : " (Locked)"), "User has found the motivation start pumping."],
         King: ["Gym King" + (Bindings["King"] ? " (Unlocked)" : " (Locked)"), "User is in top 10 Leaderboard of Cardio or Bench."],
@@ -184,19 +184,19 @@ function Profile() {
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="benchRecord">{benchRecord}<span> Kg</span>
+                            <div className="profile-card-inf__title" id="benchRecord">{benchRecord}
                             </div>
                             <input onChange={e => setBenchRecord(e.target.value)} placeholder={benchRecord}
                                    className="input-bench"/>
-                            <div className="profile-card-inf__txt">BenchPress</div>
+                            <div className="profile-card-inf__txt">BMI</div>
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="cardioRecord">{cardioRecord}<span> Mins</span>
+                            <div className="profile-card-inf__title" id="cardioRecord">{cardioRecord}<span>%</span>
                             </div>
                             <input onChange={e => setCardioRecord(e.target.value)} placeholder={cardioRecord}
                                    className="input-cardio"/>
-                            <div className="profile-card-inf__txt">Cardio Record</div>
+                            <div className="profile-card-inf__txt">Body Fat</div>
                         </div>
                     </div>
 

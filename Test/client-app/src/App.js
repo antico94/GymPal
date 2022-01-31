@@ -11,10 +11,11 @@ import {currentUser, getCookie} from "./containers/utility";
 
 function App() {
     const [user, setUser] = useState(null)
+    const [userLogged, setUserLogged] = useState(false)
+    
     useEffect(()=>{
         setUser(currentUser())
     },[user])
-    const [userLogged, setUserLogged] = useState(false)
     useEffect(()=>{
 
         if (getCookie("userLoggedIn") === "true"){
@@ -22,7 +23,7 @@ function App() {
         }
         else setUserLogged(false)
 
-    },[getCookie("userLoggedIn")])
+    },[userLogged])
     return (<Router>
         <div className="App">
             <Nav userLoggedIn={userLogged}/>

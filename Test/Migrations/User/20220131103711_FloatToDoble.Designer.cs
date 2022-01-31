@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Test.Models.UserDb;
 
@@ -11,9 +12,10 @@ using Test.Models.UserDb;
 namespace Test.Migrations.User
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20220131103711_FloatToDoble")]
+    partial class FloatToDoble
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,6 +165,9 @@ namespace Test.Migrations.User
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("DateJoined")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -193,15 +198,6 @@ namespace Test.Migrations.User
 
                     b.Property<double>("BMI")
                         .HasColumnType("float");
-
-                    b.Property<int>("BMIIndex")
-                        .HasColumnType("int");
-
-                    b.Property<double>("BodyFat")
-                        .HasColumnType("float");
-
-                    b.Property<int>("BodyFatIndex")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateJoined")
                         .HasColumnType("datetime2");

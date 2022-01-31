@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Tasks;
 using Test.Helper;
 using Test.Models.GymData;
 using Test.Models.MuscleDb;
@@ -109,33 +110,33 @@ public class AuthController : Controller
 
 
     [HttpPost("setProfile")]
-    public async Task<IActionResult> CompleteProfile(UserProfile profile)
+    public async Task<IActionResult> CompleteProfile(UserProfileWebModel webModel)
     {
-        var userProfile = _repository.Profiles.FirstOrDefault(u => u.UserId == profile.UserId);
-        if (userProfile != null)
-        {
-            userProfile.Name = profile.Name;
-            userProfile.Description = profile.Description;
-            userProfile.Height = profile.Height;
-            userProfile.Weight = profile.Weight;
-            userProfile.Gender = profile.Gender;
-        }
-
+        var userProfile = _repository.Profiles.FirstOrDefault(u => u.UserId == webModel.UserId);
+        
+        if (userProfile == null)
+            return BadRequest(new
+            {
+                message = "Ceva e in neregula cu webmodel."
+            });
+        
+        var bmi = Utils.Utils.CalculateBmiValue(webModel.Weight, webModel.Height);
+        var bodyFatPercentage = Utils.Utils.CalculateBodyFatPercentage(bmi, webModel.Gender, webModel.Age);
+        userProfile.Name = webModel.Name;
+        userProfile.Description = webModel.Description;
+        userProfile.Height = webModel.Height;
+        userProfile.Weight = webModel.Weight;
+        userProfile.Gender = webModel.Gender;
+        userProfile.BMI = bmi;
+        userProfile.BMIIndex = Utils.Utils.CalculateBmiIndex(bmi);
+        userProfile.BodyFat = bodyFatPercentage;
+        userProfile.BodyFatIndex = Utils.Utils.CalculateBodyFatIndex(bodyFatPercentage, webModel.Gender);
+        userProfile.Age = webModel.Age;
         await _repository.SaveChangesAsync();
 
         return Ok(new
         {
             message = "Updated Profile Successfully"
-        });
-    }
-
-    [HttpPost("logout")]
-    public IActionResult LogOut()
-    {
-        Response.Cookies.Delete("jwt");
-        return Ok(new
-        {
-            message = "success"
         });
     }
 }

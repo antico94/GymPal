@@ -10,16 +10,48 @@ import New from "./../../assets/img/Medals/New.png"
 import King from "./../../assets/img/Medals/King.png"
 import $ from 'jquery'
 import {variables as HardCodedData} from "../../containers/ProfileDummyData";
+import {CustomModal} from "../../components";
+import {AddObjectInCookie, currentUser, fetchCustomData, fetchData, getCookie} from "../../containers/utility";
+import {variables as API} from "../../containers/Variables";
+import * as url from "url";
 
 function Profile() {
-    
-    const [name, setName] = useState(HardCodedData.Name);
-    const [description, setDescription] = useState(HardCodedData.Description);
-    const [height, setHeight] = useState(HardCodedData.Height);
-    const [weight, setWeight] = useState(HardCodedData.Weight);
-    const [benchRecord, setBenchRecord] = useState(HardCodedData.BenchPressRecord);
-    const [cardioRecord, setCardioRecord] = useState(HardCodedData.CardioRecord);
-    const [buttonText, setButtonText] = useState("");
+    const [userUpdate, setUserUpdate] = useState(0)
+
+    const UpdateProfile = () => {
+        let userid = getCookie("UserId")
+        fetchCustomData(API.UPDATE_PROFILE, "post", {name, description, height, weight, userid}).then(response => {
+                if (response.ok) {
+                    response.json().then(error => console.log(error))
+                    // currentUser()
+                } else {
+                    response.json().then(error => console.log(error))
+                }
+            }
+        )
+    }
+    // const userId = getCookie("UserId")
+    // const response = fetch(API.UPDATE_PROFILE, {
+    //     method: "POST",
+    //     headers: {"Content-Type": "Application/json"}, body: JSON.stringify({name, description, height, weight, userId})
+    // });
+    // console.log(response)
+    // response.then(r => r.json().then(z => console.log(z)
+    // ))
+
+
+
+    useEffect(() => {
+        console.log("change")
+    }, [document.cookie])
+
+    const [name, setName] = useState(getCookie("Name"));
+    const [description, setDescription] = useState(getCookie("Description"));
+    const [height, setHeight] = useState(getCookie("Height"));
+    const [weight, setWeight] = useState(getCookie("Weight"));
+    const [BMI, setBMI] = useState(getCookie("BMI"));
+    const [fatPercentage, setFatPercentage] = useState(getCookie("BodyFat"));
+    const [buttonText, setButtonText] = useState("Edit Information");
 
 
     //Medals
@@ -31,7 +63,7 @@ function Profile() {
     const [fabulousUnlocked, setFabulousUnlocked] = useState(HardCodedData.HasProfilePicture);
     const [newUnlocked, setNewUnlocked] = useState(true);
     const [kingUnlocked, setKingUnlocked] = useState(HardCodedData.IsTop10);
-    
+
 
     const Bindings = {
         Safe: safeUnlocked,
@@ -48,7 +80,6 @@ function Profile() {
         const icons = document.querySelectorAll('.icon')
         for (let i = 0; i < icons.length; i++) {
             let temp = icons[i].src.slice(35, icons[i].src.length - 13)
-            console.log(Bindings[temp])
             if (!Bindings[temp]) {
                 icons[i].setAttribute('data-locked', '')
             }
@@ -74,13 +105,12 @@ function Profile() {
 
         "use strict";
 
-        $(".icon").hover(
-            function () {
-                let modalTitle = $("#modal-title-profile")
-                let modalDescription = $("#modal-description-profile")
-                modalTitle.text(ModalBindings[this.src.slice(35, this.src.length - 13)][0])
-                modalDescription.text(ModalBindings[this.src.slice(35, this.src.length - 13)][1])
-            });
+        $(".icon").hover(function () {
+            let modalTitle = $("#modal-title-profile")
+            let modalDescription = $("#modal-description-profile")
+            modalTitle.text(ModalBindings[this.src.slice(35, this.src.length - 13)][0])
+            modalDescription.text(ModalBindings[this.src.slice(35, this.src.length - 13)][1])
+        });
     });
 
     const closeMenu = () => {
@@ -103,8 +133,8 @@ function Profile() {
             $(".profile-card-loc__txt").css("display", "none")
             $("#currentHeight").css("display", "none")
             $("#currentWeight").css("display", "none")
-            $("#benchRecord").css("display", "none")
-            $("#cardioRecord").css("display", "none")
+            $("#BMI").css("display", "none")
+            $("#fatPercentage").css("display", "none")
 
         }
 
@@ -124,20 +154,21 @@ function Profile() {
             $(".profile-card-loc__txt").css("display", "block")
             $("#currentHeight").css("display", "block")
             $("#currentWeight").css("display", "block")
-            $("#benchRecord").css("display", "block")
-            $("#cardioRecord").css("display", "block")
+            $("#BMI").css("display", "block")
+            $("#fatPercentage").css("display", "block")
         }
 
         if (buttonText === "Edit Information") {
             $("#edit__profile").text("Save")
             setButtonText("Save")
+
             ShowInputBoxes()
 
         } else {
             $("#edit__profile").text("Edit Information")
             setButtonText("Edit Information")
             HideInputBoxes()
-
+            UpdateProfile()
         }
     }
 
@@ -158,11 +189,8 @@ function Profile() {
                     </div>
                     <div className="profile-card__txt">Member for <strong>5 days.</strong></div>
                     <div className="profile-card-loc">
-                        
-                        <span className="profile-card-loc__txt">
-
-          {description}
-        </span>
+                        {/*<CustomModal/>*/}
+                        <span className="profile-card-loc__txt">{description}</span>
                         <input onChange={e => setDescription(e.target.value)} className="input-description"
                                placeholder={description}/>
                     </div>
@@ -180,21 +208,22 @@ function Profile() {
                             <input onChange={e => setWeight(e.target.value)} placeholder={weight}
                                    className="input-weight"/>
 
-                            <div className="profile-card-inf__txt">Kg</div>
+                            <div className="profile-card-inf__txt">Weight</div>
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="benchRecord">{benchRecord}
+                            <div className="profile-card-inf__title" id="BMI">{BMI}
                             </div>
-                            <input onChange={e => setBenchRecord(e.target.value)} placeholder={benchRecord}
+                            <input onChange={e => setBMI(e.target.value)} placeholder={BMI}
                                    className="input-bench"/>
                             <div className="profile-card-inf__txt">BMI</div>
                         </div>
 
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="cardioRecord">{cardioRecord}<span>%</span>
+                            <div className="profile-card-inf__title"
+                                 id="fatPercentage">{fatPercentage}<span>%</span>
                             </div>
-                            <input onChange={e => setCardioRecord(e.target.value)} placeholder={cardioRecord}
+                            <input onChange={e => setFatPercentage(e.target.value)} placeholder={fatPercentage}
                                    className="input-cardio"/>
                             <div className="profile-card-inf__txt">Body Fat</div>
                         </div>

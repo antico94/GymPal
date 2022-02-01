@@ -4,5 +4,6 @@ export const variables = {
     EXERCISE : "https://localhost:8001/api/Exercise",
     REGISTER : "https://localhost:8001/api/register",
     LOGIN : "https://localhost:8001/api/login",
-    USER: "https://localhost:8001/api/user"
+    USER: "https://localhost:8001/api/user",
+    UPDATE_PROFILE : "https://localhost:8001/api/setProfile"
 }

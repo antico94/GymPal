@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import './home.css'
-import {RotatingWords} from "../../components";
+import { RotatingWords} from "../../components";
 import logo from "./../../assets/img/Dumbbell-Fitness-Man-Transparent-PNG.png"
 import Grill from "./../../assets/img/grilll.png"
-// import Banner from "../../assets/img/home-banner.jpg"
 import short1 from '../../assets/video/short (1).mp4'
 import short2 from '../../assets/video/short (2).mp4'
 import short3 from '../../assets/video/short (3).mp4'
@@ -15,7 +14,6 @@ import short8 from '../../assets/video/short (8).mp4'
 import short9 from '../../assets/video/short (9).mp4'
 import $ from 'jquery'
 import Features from "../../components/features/features";
-import {currentUser} from "../../containers/utility"
 
 
 const Homepage = () => {

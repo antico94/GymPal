@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Test.Models.Progress;
 using Test.Models.UserModels;
 
@@ -9,11 +10,11 @@ public class UserContext : DbContext
     public UserContext(DbContextOptions<UserContext> options) : base(options)
     {
     }
-        
+
     public DbSet<User> Users { get; set; }
     public DbSet<UserProfile> Profiles { get; set; }
     public DbSet<UserProgress> UserProgresses { get; set; }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>(entity =>

@@ -2,9 +2,9 @@
     Name : "Dani Mocanu",
     Description: "I love to piss in the snow",
     Height : "1.73",
-    Weight: "65",
-    BenchPressRecord: "123",
-    CardioRecord: "85",
+    Weight: "78",
+    BMI: "25.6",
+    BodyFat: "21.5",
     
     HasCompletedHSA: true,
     HasCompletedProfile: true,
@@ -12,10 +12,6 @@
     HasNotExceededRecommendedWeight: true,
     HasProfilePicture: true,
     IsTop10: false
-}
-
-export let userInfo = {
-    isUserLogged : 1
 }
 
 

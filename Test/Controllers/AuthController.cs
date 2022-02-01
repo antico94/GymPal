@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Tasks;
 using Test.Helper;
+using Test.Models.Enums;
 using Test.Models.GymData;
 using Test.Models.MuscleDb;
 using Test.Models.Token;
@@ -96,8 +98,9 @@ public class AuthController : Controller
         {
             var token = _jwtService.Verify(jwt.Jwt);
             int userId = int.Parse(token.Issuer);
-            var user = _repository.Users.FirstOrDefault(u => u.Id == userId);
-            return Ok(user);
+            var profile = _repository.Profiles.FirstOrDefault(u => u.UserId == userId);
+            var profileConverted = Utils.Utils.ConvertToJsonString(profile);
+            return Ok(profileConverted);
         }
         catch (Exception e)
         {
@@ -113,11 +116,11 @@ public class AuthController : Controller
     public async Task<IActionResult> CompleteProfile(UserProfileWebModel webModel)
     {
         var userProfile = _repository.Profiles.FirstOrDefault(u => u.UserId == webModel.UserId);
-        
+        Console.WriteLine(webModel);
         if (userProfile == null)
             return BadRequest(new
             {
-                message = "Ceva e in neregula cu webmodel."
+                message = webModel
             });
         
         var bmi = Utils.Utils.CalculateBmiValue(webModel.Weight, webModel.Height);
@@ -138,5 +141,20 @@ public class AuthController : Controller
         {
             message = "Updated Profile Successfully"
         });
+    }
+    
+    
+    [HttpGet("test12")]
+    public IActionResult Test()
+    {
+        var profile = _repository.Profiles.FirstOrDefault(u => u.UserId == 31);
+        Dictionary<string, string> myDict = new Dictionary<string, string>();
+        foreach (PropertyInfo prop in profile.GetType().GetProperties())
+        {
+            myDict.Add(prop.Name, prop.GetValue(profile, null).ToString());
+        }
+        var textBox = Newtonsoft.Json.JsonConvert.SerializeObject(myDict);
+
+        return Ok(textBox);
     }
 }

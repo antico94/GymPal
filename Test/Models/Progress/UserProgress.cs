@@ -8,6 +8,6 @@ public class UserProgress
 
     public User User { get; set; }
     [Key]
-    public int UserId { get; set; }
+    public int UserProgressId { get; set; }
     public ICollection<Progress> Progresses { get; set; }
 }

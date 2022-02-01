@@ -3,12 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@mui/material": "^5.2.4",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "cors": "^2.8.5",
-    "express": "^4.17.2",
     "history": "^5.1.0",
     "jquery": "^3.6.0",
     "jsdom": "^19.0.0",
@@ -18,9 +12,7 @@
     "react-router": "^6.1.1",
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
-    "react-select": "^5.2.1",
-    "react-video-js-player": "^1.1.1",
-    "web-vitals": "^1.1.2"
+    "react-select": "^5.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

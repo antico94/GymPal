@@ -1,4 +1,5 @@
-﻿using Test.Models.Enums;
+﻿using System.Reflection;
+using Test.Models.Enums;
 using Test.Models.GymData.Enums;
 
 namespace Test.Utils;
@@ -8,7 +9,7 @@ public static class Utils
     public static double CalculateBmiValue(int weight, int height)
     {
         double bmiBrute = (double)weight/height/height*10000;
-        return Math.Round(bmiBrute, 2);
+        return Math.Round(bmiBrute, 1);
     }
     public static BmiChart CalculateBmiIndex(double bmi)
     {
@@ -55,6 +56,17 @@ public static class Utils
     {
         var genderVariable = gender == Gender.Female ? 5.4 : 16.2;
         var bruteFat = 1.2 * bmi + 0.23 * age - genderVariable;
-        return Math.Round(bruteFat, 2);
+        return Math.Round(bruteFat, 1);
+    }
+
+    public static string ConvertToJsonString(object obj)
+    {
+        Dictionary<string, string> myDict = new Dictionary<string, string>();
+        foreach (PropertyInfo prop in obj.GetType().GetProperties())
+        {
+            myDict.Add(prop.Name, prop.GetValue(obj, null).ToString());
+        }
+        var textBox = Newtonsoft.Json.JsonConvert.SerializeObject(myDict);
+        return textBox;
     }
 }

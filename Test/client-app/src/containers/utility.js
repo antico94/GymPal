@@ -2,18 +2,16 @@
 
 export const currentUser = () => {
     if (isCookiePresent("jwt")) {
-        fetchData().then(response=> {
-            if (response.ok){
-                console.log("The user is logged in")
-                response.json().then(userData=>AddObjectInCookie(userData))
-            }else {
-                document.cookie="userLoggedIn=false"
+        fetchData().then(response => {
+            if (response.ok) {
+                response.json().then(userData => AddObjectInCookie(userData))
+            } else {
+                document.cookie = "userLoggedIn=false"
             }
         })
         return "user changed"
-    }
-    else {
-        document.cookie="userLoggedIn=false"
+    } else {
+        document.cookie = "userLoggedIn=false"
         return "user changed"
     }
 }
@@ -24,6 +22,21 @@ export const fetchData = async () => {
         method: "POST", headers: {"Content-Type": "Application/json"}, body: JSON.stringify({jwt}),
     })
 }
+
+export const fetchCustomData = async (url, method, args) => {
+    if (method.toLowerCase() === "post") {
+        return await fetch(url, {
+            method: method, headers: {"Content-Type": "Application/json"},
+            body: JSON.stringify(args),
+        })
+    } else {
+        return await fetch(url, {
+            method: method,
+            headers: {"Content-Type": "Application/json"}
+        })
+    }
+}
+
 
 export const isCookiePresent = (cookie) => {
     return getCookie(cookie) !== null

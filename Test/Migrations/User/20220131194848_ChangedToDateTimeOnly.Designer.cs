@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Test.Models.UserDb;
 
@@ -11,9 +12,10 @@ using Test.Models.UserDb;
 namespace Test.Migrations.User
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20220131194848_ChangedToDateTimeOnly")]
+    partial class ChangedToDateTimeOnly
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,30 +129,30 @@ namespace Test.Migrations.User
                     b.Property<DateTime>("Day")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserProgressId")
+                    b.Property<int?>("UserProgressUserId")
                         .HasColumnType("int");
 
                     b.HasKey("ProgressId");
 
-                    b.HasIndex("UserProgressId");
+                    b.HasIndex("UserProgressUserId");
 
                     b.ToTable("Progress");
                 });
 
             modelBuilder.Entity("Test.Models.Progress.UserProgress", b =>
                 {
-                    b.Property<int>("UserProgressId")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserProgressId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("UserId1")
                         .HasColumnType("int");
 
-                    b.HasKey("UserProgressId");
+                    b.HasKey("UserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("UserProgresses");
                 });
@@ -262,14 +264,14 @@ namespace Test.Migrations.User
                 {
                     b.HasOne("Test.Models.Progress.UserProgress", null)
                         .WithMany("Progresses")
-                        .HasForeignKey("UserProgressId");
+                        .HasForeignKey("UserProgressUserId");
                 });
 
             modelBuilder.Entity("Test.Models.Progress.UserProgress", b =>
                 {
                     b.HasOne("Test.Models.UserModels.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

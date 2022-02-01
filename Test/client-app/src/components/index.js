@@ -2,4 +2,5 @@
 export {default as NewNavBar} from "./nav-bar/nav"
 export {default as Features} from './features/features'
 export {default as Weather} from './weather/Weather'
+export {default as CustomModal} from './modal/modal'
 

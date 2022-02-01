@@ -65,7 +65,7 @@ class Features extends Component {
                                 <ul>
                                     <li>While your fitness journey can be topped up by a fitness band as it helps you in
                                         various ways, like tracking your heart rate. Similarly, it's always a good
-                                        choice to top-up your health plan with the help of Super Top-up​ that adds a lot
+                                        choice to top-up your health plan with the help of Super Top-up that adds a lot
                                         of benefits to shield your health
                                     </li>
                                     <li>To achieve the best results, you will have to set a realistic goal that can be

@@ -10,40 +10,43 @@ import New from "./../../assets/img/Medals/New.png"
 import King from "./../../assets/img/Medals/King.png"
 import $ from 'jquery'
 import {variables as HardCodedData} from "../../containers/ProfileDummyData";
-import {CustomModal} from "../../components";
-import {AddObjectInCookie, currentUser, fetchCustomData, fetchData, getCookie} from "../../containers/utility";
+import {currentUser, fetchCustomData, getCookie} from "../../containers/utility";
 import {variables as API} from "../../containers/Variables";
-import * as url from "url";
 
 function Profile() {
-    const [userUpdate, setUserUpdate] = useState(0)
 
     const UpdateProfile = () => {
         let userid = getCookie("UserId")
-        fetchCustomData(API.UPDATE_PROFILE, "post", {name, description, height, weight, userid}).then(response => {
-                if (response.ok) {
-                    response.json().then(error => console.log(error))
-                    // currentUser()
-                } else {
-                    response.json().then(error => console.log(error))
-                }
+        fetchCustomData(API.UPDATE_PROFILE, "post", {
+            name, gender, age, description, height, weight, userid
+        }).then(response => {
+            if (response.ok) {
+                response.json().then(error => console.log(error))
+                currentUser()
+                setTimeout(() => {
+                    setFatPercentage(getCookie("BodyFat"))
+                    setBMI(getCookie("BMI"))
+                    setBfIndex(getCookie("BodyFatIndex"))
+                    setBmiIndex(getCookie("BMIIndex"))
+                }, 100)
+
+            } else {
+                response.json().then(error => console.log(error))
             }
-        )
+        })
     }
-    // const userId = getCookie("UserId")
-    // const response = fetch(API.UPDATE_PROFILE, {
-    //     method: "POST",
-    //     headers: {"Content-Type": "Application/json"}, body: JSON.stringify({name, description, height, weight, userId})
-    // });
-    // console.log(response)
-    // response.then(r => r.json().then(z => console.log(z)
-    // ))
 
+    $('.button').click(function () {
+        const buttonId = $(this).attr('id');
+        $('#modal-container').removeAttr('class').addClass(buttonId);
+        $('body').addClass('modal-active');
+    })
 
+    $('#modal-container').hover(function () {
+        $(this).addClass('out');
+        $('body').removeClass('modal-active');
+    });
 
-    useEffect(() => {
-        console.log("change")
-    }, [document.cookie])
 
     const [name, setName] = useState(getCookie("Name"));
     const [description, setDescription] = useState(getCookie("Description"));
@@ -51,18 +54,30 @@ function Profile() {
     const [weight, setWeight] = useState(getCookie("Weight"));
     const [BMI, setBMI] = useState(getCookie("BMI"));
     const [fatPercentage, setFatPercentage] = useState(getCookie("BodyFat"));
+    const [age, setAge] = useState(getCookie("Age"));
+    const [gender, setGender] = useState(getCookie("Gender"));
+    const [bmiIndex, setBmiIndex] = useState(getCookie("BMIIndex"));
+    const [bfIndex, setBfIndex] = useState(getCookie("BodyFatIndex"));
     const [buttonText, setButtonText] = useState("Edit Information");
 
 
     //Medals
     // const Medals = [Safe, Complete, Cardio, Smart, Fabulous, New, King]
-    const [safeUnlocked, setSafeUnlocked] = useState(HardCodedData.HasCompletedHSA);
-    const [completedUnlocked, setCompletedUnlocked] = useState(HardCodedData.HasCompletedProfile);
-    const [cardioUnlocked, setCardioUnlocked] = useState(HardCodedData.HasOver1000Cardio);
-    const [smartUnlocked, setSmartUnlocked] = useState(HardCodedData.HasNotExceededRecommendedWeight);
-    const [fabulousUnlocked, setFabulousUnlocked] = useState(HardCodedData.HasProfilePicture);
-    const [newUnlocked, setNewUnlocked] = useState(true);
-    const [kingUnlocked, setKingUnlocked] = useState(HardCodedData.IsTop10);
+    // const [safeUnlocked, setSafeUnlocked] = useState(HardCodedData.HasCompletedHSA);
+    // const [completedUnlocked, setCompletedUnlocked] = useState(HardCodedData.HasCompletedProfile);
+    // const [cardioUnlocked, setCardioUnlocked] = useState(HardCodedData.HasOver1000Cardio);
+    // const [smartUnlocked, setSmartUnlocked] = useState(HardCodedData.HasNotExceededRecommendedWeight);
+    // const [fabulousUnlocked, setFabulousUnlocked] = useState(HardCodedData.HasProfilePicture);
+    // const [newUnlocked, setNewUnlocked] = useState(true);
+    // const [kingUnlocked, setKingUnlocked] = useState(HardCodedData.IsTop10);
+
+    const safeUnlocked = HardCodedData.HasCompletedHSA;
+    const completedUnlocked = HardCodedData.HasCompletedProfile;
+    const cardioUnlocked = HardCodedData.HasOver1000Cardio;
+    const smartUnlocked = HardCodedData.HasNotExceededRecommendedWeight;
+    const fabulousUnlocked = HardCodedData.HasProfilePicture;
+    const newUnlocked = true;
+    const kingUnlocked = HardCodedData.IsTop10;
 
 
     const Bindings = {
@@ -89,6 +104,9 @@ function Profile() {
 
     useEffect(() => {
         Medals()
+        if (getCookie("userLoggedIn") === "false") {
+            // $('body').addClass('modal-active');
+        }
     })
 
     const ModalBindings = {
@@ -102,9 +120,6 @@ function Profile() {
     }
 
     $(document).ready(function () {
-
-        "use strict";
-
         $(".icon").hover(function () {
             let modalTitle = $("#modal-title-profile")
             let modalDescription = $("#modal-description-profile")
@@ -125,8 +140,9 @@ function Profile() {
             $('.input-description').css("display", "block")
             $('.input-height').css("display", "block")
             $('.input-weight').css("display", "block")
-            $('.input-bench').css("display", "block")
-            $('.input-cardio').css("display", "block")
+            $('.input-age').css("display", "block")
+            $('.input-gender').css("display", "block")
+            $('.special-radio').css("display", "block")
 
             //Hide Actual Data
             $(".profile-card__name").css("display", "none")
@@ -135,6 +151,12 @@ function Profile() {
             $("#currentWeight").css("display", "none")
             $("#BMI").css("display", "none")
             $("#fatPercentage").css("display", "none")
+            $("#age").css("display", "none")
+            $("#gender").css("display", "none")
+            $("#bmiIndex").css("display", "none")
+            $("#bfIndex").css("display", "none")
+            $(".special-hide").css("display", "none")
+
 
         }
 
@@ -145,8 +167,9 @@ function Profile() {
             $('.input-description').css("display", "none")
             $('.input-height').css("display", "none")
             $('.input-weight').css("display", "none")
-            $('.input-bench').css("display", "none")
-            $('.input-cardio').css("display", "none")
+            $('.input-gender').css("display", "none")
+            $('.input-age').css("display", "none")
+            $('.special-radio').css("display", "none")
 
 
             //Show Actual Data
@@ -156,6 +179,11 @@ function Profile() {
             $("#currentWeight").css("display", "block")
             $("#BMI").css("display", "block")
             $("#fatPercentage").css("display", "block")
+            $("#age").css("display", "block")
+            $("#gender").css("display", "block")
+            $("#bfIndex").css("display", "block")
+            $("#bmiIndex").css("display", "block")
+            $(".special-hide").css("display", "block")
         }
 
         if (buttonText === "Edit Information") {
@@ -174,7 +202,9 @@ function Profile() {
 
 
     return (<div className="profile-page">
+
         <div className="wrapper">
+            {/*<Modal/>*/}
             <div className="profile-card js-profile-card">
                 <div className="profile-card__img">
                     <img
@@ -189,45 +219,112 @@ function Profile() {
                     </div>
                     <div className="profile-card__txt">Member for <strong>5 days.</strong></div>
                     <div className="profile-card-loc">
-                        {/*<CustomModal/>*/}
                         <span className="profile-card-loc__txt">{description}</span>
                         <input onChange={e => setDescription(e.target.value)} className="input-description"
                                placeholder={description}/>
                     </div>
 
+
                     <div className="profile-card-inf">
+
+                        {/*Height*/}
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="currentHeight">{height}</div>
+                            <div className="profile-card-inf__title">Height</div>
+
+                            <div className="profile-card-inf__txt" id="currentHeight">{height} cm</div>
                             <input onChange={e => setHeight(e.target.value)} placeholder={height}
                                    className="input-height"/>
-                            <div className="profile-card-inf__txt">Height</div>
                         </div>
 
+                        {/*Weight*/}
                         <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="currentWeight">{weight}</div>
+                            <div className="profile-card-inf__title">Weight</div>
+
+                            <div className="profile-card-inf__txt" id="currentWeight">{weight} Kg</div>
                             <input onChange={e => setWeight(e.target.value)} placeholder={weight}
                                    className="input-weight"/>
-
-                            <div className="profile-card-inf__txt">Weight</div>
                         </div>
 
-                        <div className="profile-card-inf__item">
-                            <div className="profile-card-inf__title" id="BMI">{BMI}
-                            </div>
-                            <input onChange={e => setBMI(e.target.value)} placeholder={BMI}
-                                   className="input-bench"/>
-                            <div className="profile-card-inf__txt">BMI</div>
+                        {/*BMI*/}
+                        <div className="profile-card-inf__item special-hide">
+
+                            <div className="profile-card-inf__title" id="BMI">BMI</div>
+                            <div className="profile-card-inf__txt">{BMI} %</div>
                         </div>
 
-                        <div className="profile-card-inf__item">
+                        {/*BodyFat*/}
+                        <div className="profile-card-inf__item special-hide">
+
                             <div className="profile-card-inf__title"
-                                 id="fatPercentage">{fatPercentage}<span>%</span>
+                                 id="fatPercentage">Body Fat
                             </div>
-                            <input onChange={e => setFatPercentage(e.target.value)} placeholder={fatPercentage}
-                                   className="input-cardio"/>
-                            <div className="profile-card-inf__txt">Body Fat</div>
+
+                            <div className="profile-card-inf__txt">{fatPercentage} %</div>
+                        </div>
+
+                        {/*Age*/}
+                        <div className="profile-card-inf__item">
+                            <div className="profile-card-inf__title">Age</div>
+                            <div className="profile-card-inf__txt" id="age">{age}</div>
+                            <input onChange={e => setAge(e.target.value)} placeholder={age}
+                                   className="input-age"/>
+                        </div>
+
+                        {/*Gender*/}
+                        <div className="profile-card-inf__item">
+                            <div className="profile-card-inf__title">Gender</div>
+                            <div className="special-radio">
+                                <div className="segmented-control">
+                                    <input type="radio" name="radio2" onClick={e => setGender(e.target.value)}
+                                           value="Male" id="tab-1" checked/>
+                                    <label htmlFor="tab-1" className="segmented-control__1">
+                                        <p>Male</p></label>
+                                    <input type="radio" name="radio2" onClick={e => setGender(e.target.value)}
+                                           value="Female" id="tab-2"/>
+                                    <label htmlFor="tab-2" className="segmented-control__2">
+                                        <p>Famale</p></label>
+                                    <div className="segmented-control__color"/>
+                                </div>
+                            </div>
+                            <div className="profile-card-inf__txt" id="gender">{gender}</div>
+                        </div>
+
+                        {/*BMI Index*/}
+                        <div className="profile-card-inf__item special-hide">
+                            <div className="profile-card-inf__title"
+                                 id="bmiIndex">BMI Index
+                            </div>
+                            <div id="hide" className="profile-card-inf__txt">{bmiIndex}</div>
+                        </div>
+
+                        {/*BF Index*/}
+                        <div className="profile-card-inf__item special-hide">
+                            <div className="profile-card-inf__title"
+                                 id="bfIndex">BF Index
+                            </div>
+                            <div id="hide1" className="profile-card-inf__txt">{bfIndex}</div>
                         </div>
                     </div>
+
+                    {/*<div className="custom-modal">*/}
+                    {/*    <div id="modal-container">*/}
+                    {/*        <div className="modal-background">*/}
+                    {/*            <div className="modal">*/}
+                    {/*                <svg className="modal-svg" xmlns="http://www.w3.org/2000/svg" width="100%"*/}
+                    {/*                     height="100%"*/}
+                    {/*                     preserveAspectRatio="none">*/}
+                    {/*                    <rect x="0" y="0" fill="none" width="226" height="162" rx="3" ry="3"/>*/}
+                    {/*                </svg>*/}
+                    {/*                <h1>Not implemented yet</h1>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="content">*/}
+                    {/*        <div className="buttons">*/}
+                    {/*            <div id="five" className="button">Stats</div>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
 
                     <div className="profile-card-social">
                         <h3 className="achievements-title">Achievements Unlocked</h3>

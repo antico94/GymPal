@@ -4,9 +4,11 @@ export const currentUser = () => {
     if (isCookiePresent("jwt")) {
         fetchData().then(response => {
             if (response.ok) {
-                response.json().then(userData => AddObjectInCookie(userData))
+                response.json().then(userData => {
+                    AddObjectInCookie(userData)})
             } else {
                 document.cookie = "userLoggedIn=false"
+                response.json().then(error => console.log(error))
             }
         })
         return "user changed"

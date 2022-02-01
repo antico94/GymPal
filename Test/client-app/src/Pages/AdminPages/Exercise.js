@@ -133,7 +133,7 @@ class Exercise extends Component {
 
     render() {
         const {
-            muscles, Id, thisTitle, Name, exercises, selectedOptions
+            muscles, Id, thisTitle, Name, exercises
         } = this.state
         return (
 

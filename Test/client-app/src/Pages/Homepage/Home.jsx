@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import './home.css'
 import { RotatingWords} from "../../components";
 import logo from "./../../assets/img/Dumbbell-Fitness-Man-Transparent-PNG.png"
@@ -45,7 +45,7 @@ const Homepage = () => {
                         track your workout progress, share your achievements and do it all over again for any of
                         the 152 muscles mapped with any of the 600 associated exercises.
                     </p>
-                    <a href="#" className="btn" onClick={playVideo}>Give me some motivation!</a>
+                    <a className="btn" onClick={playVideo}>Give me some motivation!</a>
                     <div className='video-player'>
                         <video
                             // ref="vidRef"
@@ -108,11 +108,9 @@ const Homepage = () => {
                         freshness of the mind. Whether you are watching or playing any game, it is essential
                         because it promotes interests that help the brain function effectively.
                     </p>
-                    <a href="#"
-                    >
+                    <a>
                         <div className="line"/>
-                        Learn More</a
-                    >
+                        Learn More</a>
                 </div>
             </div>
         </section>

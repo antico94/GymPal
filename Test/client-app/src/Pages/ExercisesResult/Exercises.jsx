@@ -1,6 +1,5 @@
 ﻿import React from 'react';
 import "./exercises.css";
-import $ from 'jquery'
 import ChildExercise from "../../components/child-exercises/ChildExercise";
 
 const Exercises = (props) => {

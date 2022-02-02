@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Test.Models.GymData;
 using Test.Models.MuscleDb;
+using Test.Models.WebModels;
 
 namespace Test.Controllers
 {
@@ -76,12 +77,19 @@ namespace Test.Controllers
         // POST: api/Workout
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Workout>> PostWorkout(Workout workout)
+        public async Task<ActionResult<Workout>> PostWorkout(WorkoutWebModel webModel)
         {
+            Workout workout = new Workout()
+            {
+                Name = webModel.Name,
+                Description = webModel.Description,
+                GymTasks = GetGymTaskSById(webModel.GymTasksIds)
+            };
+            
             _context.Workouts.Add(workout);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetWorkout", new { id = workout.WorkoutId }, workout);
+            return CreatedAtAction("GetWorkout", new {id = workout.WorkoutId}, workout);
         }
 
         // DELETE: api/Workout/5
@@ -103,6 +111,23 @@ namespace Test.Controllers
         private bool WorkoutExists(int id)
         {
             return _context.Workouts.Any(e => e.WorkoutId == id);
+        }
+
+        private ICollection<GymTask> GetGymTaskSById(List<int> list)
+        {
+            ICollection<GymTask> gymTasks = new List<GymTask>();
+
+            foreach (int id in list)
+            {
+                bool gymTaskExists = _context.Tasks.Any(task => task.Id == id);
+                if (gymTaskExists)
+                {
+                    GymTask temp = _context.Tasks.FirstOrDefault(task => task.Id == id) ?? throw new InvalidOperationException();
+                    gymTasks.Add(temp);
+                }
+            }
+
+            return gymTasks;
         }
     }
 }

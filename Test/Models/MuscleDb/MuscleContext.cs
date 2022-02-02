@@ -15,7 +15,8 @@ public class MuscleContext : DbContext
     public DbSet<Exercise> Exercises { get; set; }
     public DbSet<GymTask> Tasks { get; set; }
     public DbSet<Progress.Progress> Progresses { get; set; }
-    
+    public DbSet<Workout> Workouts { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<GymTask>( a =>

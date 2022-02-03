@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Test.Models.GymData;
 using Test.Models.MuscleDb;
+using Test.Models.WebModels;
 
 namespace Test.Controllers
 {
@@ -23,10 +24,27 @@ namespace Test.Controllers
 
         // GET: api/Exercise
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Exercise>>> GetExercises()
+        public async Task<ActionResult<IEnumerable<ExerciseReturnModel>>> GetExercises()
         {
-            // return await _context.Exercises.ToListAsync();
-            return await _context.Exercises.Include(e => e.MusclesTrained).ToListAsync();
+            var data = await _context.Exercises.Include(e => e.MusclesTrained).ToListAsync();
+            List<ExerciseReturnModel> returnModels = new List<ExerciseReturnModel>();
+            foreach (var exercise in data)
+            {
+                returnModels.Add(new ExerciseReturnModel()
+                {
+                    Id = exercise.Id,
+                    Name = exercise.Name,
+                    MusclesList = exercise.MusclesTrained.Select(t=>t.Name).ToList()
+                });
+            }
+            foreach (var s in returnModels)
+            {
+                foreach (var s1 in s.MusclesList)
+                {
+                    Console.WriteLine(s1);
+                }
+            }
+            return returnModels;
         }
 
         // GET: api/Exercise/5

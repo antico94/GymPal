@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {variables as API} from "../../containers/Variables";
+import {API} from "../../containers/API";
 import MuscleMultiSelect from "../../components/muscle-selector/MuscleSelect"
 import './admin.css'
 
@@ -16,7 +16,8 @@ class Exercise extends Component {
     refreshList() {
         fetch(API.EXERCISE)
             .then(response => response.json())
-            .then(data => this.setState({exercises: data}))
+            .then(data => {
+                this.setState({exercises: data})})
 
         fetch(API.MUSCLE)
             .then(response => response.json())
@@ -164,11 +165,11 @@ class Exercise extends Component {
                     {exercises.map(exercise => <tr key={exercise.Id}>
                         <td>{exercise.Id}</td>
                         <td>{exercise.Name}</td>
-                        <td>{exercise.MusclesTrained.map(function (muscle) {
-                            if (exercise.MusclesTrained.indexOf(muscle) !== exercise.MusclesTrained.length - 1) {
-                                return muscle.Name + ", "
+                        <td>{exercise.MusclesList.map(function (muscle) {
+                            if (exercise.MusclesList.indexOf(muscle) !== exercise.MusclesList.length - 1) {
+                                return muscle + ", "
                             } else {
-                                return muscle.Name
+                                return muscle
                             }
                         })}</td>
                         <td>

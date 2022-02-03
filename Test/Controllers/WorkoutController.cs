@@ -129,5 +129,13 @@ namespace Test.Controllers
 
             return gymTasks;
         }
+        
+        
+        // // GET: api/Workout
+        // [HttpGet]
+        // public async Task<ActionResult<IEnumerable<Workout>>> GetWorkouts()
+        // {
+        //     return await _context.Workouts.ToListAsync();
+        // }
     }
 }

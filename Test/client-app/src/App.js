@@ -8,6 +8,8 @@ import {AdminExercise, AdminMuscle, Profile, DisplayMuscles, Homepage, HealthAnd
 import Nav from "./components/nav-bar/nav";
 import {currentUser, getCookie} from "./containers/utility";
 import Workout from "./Pages/Workout/workout";
+import AdminTestExercise from "./Pages/AdminPages/AdminTestExercise";
+import Test from "./Pages/AdminPages/test";
 
 
 function App() {
@@ -38,6 +40,7 @@ function App() {
                 <Route path="/ExercisesResult" element={<ExercisesResult/>}/>
                 <Route path="/logout" element={<Logout/>}/>
                 <Route path="/workout" element={<Workout/>}/>
+                <Route path="/test" element={<Test/>}/>
                 
                 <Route path="/admin/muscles" element={<AdminMuscle/>}/>
                 <Route path="/admin/exercises" element={<AdminExercise/>}/>

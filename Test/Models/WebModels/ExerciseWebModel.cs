@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Test.Models.GymData;
+﻿namespace Test.Models.WebModels;
 
 public class ExerciseWebModel
 {

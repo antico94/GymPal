@@ -26,7 +26,7 @@ class DisplayMuscle extends Component {
         // content.forEach(e=>info.push(e.Name))
         this.setState({
             dataLoaded: true,
-            data : [content]
+            data : content
         })
         // console.log(content)
     }
@@ -90,7 +90,7 @@ class DisplayMuscle extends Component {
     render() {
          
          if (this.state.dataLoaded){
-             return (<ExercisesResult props={this.state.data}/>)
+             return (<ExercisesResult props={this.state.data} admin={false}/>)
          }
          
          else {

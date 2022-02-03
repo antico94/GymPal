@@ -1,4 +1,4 @@
-﻿import {variables as API} from "./Variables";
+﻿import {API} from "./API";
 
 export const currentUser = () => {
     if (isCookiePresent("jwt")) {

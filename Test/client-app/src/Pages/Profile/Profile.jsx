@@ -11,7 +11,7 @@ import King from "./../../assets/img/Medals/King.png"
 import $ from 'jquery'
 import {variables as HardCodedData} from "../../containers/ProfileDummyData";
 import {currentUser, fetchCustomData, getCookie} from "../../containers/utility";
-import {variables as API} from "../../containers/Variables";
+import {API} from "../../containers/API";
 
 function Profile() {
 

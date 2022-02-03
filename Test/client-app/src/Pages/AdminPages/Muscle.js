@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {variables as API} from "../../containers/Variables";
+import {API} from "../../containers/API";
 import './admin.css'
 
 class Muscle extends Component {

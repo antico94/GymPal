@@ -1,7 +1,7 @@
 ﻿import React, {useState} from 'react';
 import "./login.css"
 import $ from 'jquery'
-import {variables as API} from "../../containers/Variables";
+import {API} from "../../containers/API";
 
 
 const Register = () => {

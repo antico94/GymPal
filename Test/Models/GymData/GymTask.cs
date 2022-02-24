@@ -44,4 +44,5 @@ public class GymTask
     }
 
     public bool IsDone { get; set; }
+    public ICollection<Workout> UsedInWorkouts { get; set; }
 }

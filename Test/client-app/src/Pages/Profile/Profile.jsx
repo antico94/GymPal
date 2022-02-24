@@ -327,7 +327,7 @@ function Profile() {
                     {/*</div>*/}
 
                     <div className="profile-card-social">
-                        <h3 className="achievements-title">Achievements Unlocked</h3>
+                        <h3 className="achievements-title">Achievements</h3>
                         <a
                             className="profile-card-social__item facebook" target="_blank">
           <span className="icon-font">

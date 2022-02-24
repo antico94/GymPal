@@ -1,7 +1,6 @@
 ﻿import React from 'react';
-import './child.css'
 
-const ChildExercise = (props) => {
+const SubExercises = (props) => {
     let data = props.props
     const description = "Something short and leading about the exercise, the difficulty, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely."
     return (<div>
@@ -18,20 +17,12 @@ const ChildExercise = (props) => {
                     <p className="card-text">{description}</p>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="btn-group" id="add-to-workout">
-                            {!props.admin &&
-                                <button type="button" className="btn btn-sm btn-outline-secondary" id="me">View
-                                </button>}
-                            {!props.admin &&
-                                <button type="button" className="btn btn-sm btn-outline-secondary" id="me">Add to Workout
-                                </button>}
-                            {props.admin &&
-                                <button type="button" className="btn btn-sm btn-outline-secondary" id="me">Edit
-                                </button>}
-                            {props.admin &&
-                                <button type="button" className="btn btn-sm btn-outline-secondary" id="me">Delete
-                                </button>}
+
+                            <button type="button" className="btn btn-sm btn-outline-secondary" id="me">View
+                            </button>
+
                         </div>
-                        <small className="text-muted">Recommended Weight: 45Kg</small>
+                        <small className="text-muted">Recommended Weight: 5Kg</small>
                     </div>
                 </div>
             </div>
@@ -40,4 +31,4 @@ const ChildExercise = (props) => {
 }
 
 
-export default ChildExercise;
+export default SubExercises;

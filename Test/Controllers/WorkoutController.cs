@@ -26,14 +26,14 @@ namespace Test.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Workout>>> GetWorkouts()
         {
-            return await _context.Workouts.ToListAsync();
+            return await _context.Workouts.Include(m=>m.GymTasks).ToListAsync();
         }
 
         // GET: api/Workout/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Workout>> GetWorkout(int id)
+        public ActionResult<Workout> GetWorkout(int id)
         {
-            var workout = await _context.Workouts.FindAsync(id);
+            var workout = _context.Workouts.Include(z => z.GymTasks).FirstOrDefault(w => w.WorkoutId == id);
 
             if (workout == null)
             {
@@ -83,9 +83,9 @@ namespace Test.Controllers
             {
                 Name = webModel.Name,
                 Description = webModel.Description,
-                GymTasks = GetGymTaskSById(webModel.GymTasksIds)
+                GymTasks = GetGymTasksById(webModel.GymTasksIds)
             };
-            
+
             _context.Workouts.Add(workout);
             await _context.SaveChangesAsync();
 
@@ -113,29 +113,35 @@ namespace Test.Controllers
             return _context.Workouts.Any(e => e.WorkoutId == id);
         }
 
-        private ICollection<GymTask> GetGymTaskSById(List<int> list)
+        private ICollection<GymTask> GetGymTasksById(List<int> list)
         {
             ICollection<GymTask> gymTasks = new List<GymTask>();
-
+            var tasks = _context.Tasks;
             foreach (int id in list)
             {
-                bool gymTaskExists = _context.Tasks.Any(task => task.Id == id);
-                if (gymTaskExists)
-                {
-                    GymTask temp = _context.Tasks.FirstOrDefault(task => task.Id == id) ?? throw new InvalidOperationException();
-                    gymTasks.Add(temp);
-                }
+                GymTask temp = tasks.FirstOrDefault(m => m.Id == id);
+                gymTasks.Add(temp);
             }
 
             return gymTasks;
         }
-        
-        
-        // // GET: api/Workout
-        // [HttpGet]
-        // public async Task<ActionResult<IEnumerable<Workout>>> GetWorkouts()
-        // {
-        //     return await _context.Workouts.ToListAsync();
-        // }
+
+
+        // GET: api/Workout
+        [HttpGet]
+        [Route("/test")]
+        // public async Task<ActionResult<IEnumerable<Workout>>> Test()
+        public ActionResult<ICollection<GymTask>> Test()
+        {
+            // return await _context.Workouts.Include(m=>m.GymTasks).ToListAsync();
+            var idList = new List<int>();
+            for (int i = 5; i <10; i++)
+            {
+                idList.Add(i);
+            }
+
+            var data = GetGymTasksById(idList).ToList();
+            return data;
+        }
     }
 }

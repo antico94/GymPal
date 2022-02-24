@@ -1,13 +1,11 @@
 ﻿import React from 'react';
 import "./exercises.css";
 import ChildExercise from "../../components/child-exercises/ChildExercise";
-import useModal from "../../components/adding-modal/useModal";
-import Modal from "../../components/adding-modal/AddingModal";
 
 const Exercises = (props) => {
 
     const data = props.props
-    data.forEach(exercise=> console.log(exercise))
+    console.log(data)
     return (<main className="tampit">
         <section className="py-5 text-center container">
             <div className="row py-lg-5">

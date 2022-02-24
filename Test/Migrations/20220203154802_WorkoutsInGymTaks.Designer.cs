@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Test.Models.MuscleDb;
 
@@ -11,9 +12,10 @@ using Test.Models.MuscleDb;
 namespace Test.Migrations
 {
     [DbContext(typeof(MuscleContext))]
-    partial class MuscleContextModelSnapshot : ModelSnapshot
+    [Migration("20220203154802_WorkoutsInGymTaks")]
+    partial class WorkoutsInGymTaks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -44,7 +44,6 @@ const TestNav = (props) => {
                         </a>
                     </Link>
                     <ul className="nav">
-                        <li><Link to="/profile"><a>Profile</a></Link></li>
                         <li><Link to="/admin/muscles"><a>Muscle</a></Link></li>
                         <li><Link to="/admin/exercises"><a>Exercises</a></Link></li>
                         <li><Link to="/DisplayMuscle"><a>Muscle Selector</a></Link></li>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Test.Models.MuscleDb;
 
@@ -11,9 +12,10 @@ using Test.Models.MuscleDb;
 namespace Test.Migrations
 {
     [DbContext(typeof(MuscleContext))]
-    partial class MuscleContextModelSnapshot : ModelSnapshot
+    [Migration("20220203152148_Workouts")]
+    partial class Workouts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,21 +37,6 @@ namespace Test.Migrations
                     b.HasIndex("MusclesTrainedId");
 
                     b.ToTable("ExerciseMuscle");
-                });
-
-            modelBuilder.Entity("GymTaskWorkout", b =>
-                {
-                    b.Property<int>("GymTasksId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsedInWorkoutsWorkoutId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GymTasksId", "UsedInWorkoutsWorkoutId");
-
-                    b.HasIndex("UsedInWorkoutsWorkoutId");
-
-                    b.ToTable("GymTaskWorkout");
                 });
 
             modelBuilder.Entity("Test.Models.GymData.Exercise", b =>
@@ -102,11 +89,16 @@ namespace Test.Migrations
                     b.Property<int>("TaskType")
                         .HasColumnType("int");
 
+                    b.Property<int?>("WorkoutId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ExerciseId");
 
                     b.HasIndex("ProgressId");
+
+                    b.HasIndex("WorkoutId");
 
                     b.ToTable("Tasks");
                 });
@@ -183,21 +175,6 @@ namespace Test.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GymTaskWorkout", b =>
-                {
-                    b.HasOne("Test.Models.GymData.GymTask", null)
-                        .WithMany()
-                        .HasForeignKey("GymTasksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Test.Models.GymData.Workout", null)
-                        .WithMany()
-                        .HasForeignKey("UsedInWorkoutsWorkoutId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Test.Models.GymData.GymTask", b =>
                 {
                     b.HasOne("Test.Models.GymData.Exercise", "Exercise")
@@ -210,7 +187,16 @@ namespace Test.Migrations
                         .WithMany("Tasks")
                         .HasForeignKey("ProgressId");
 
+                    b.HasOne("Test.Models.GymData.Workout", null)
+                        .WithMany("GymTasks")
+                        .HasForeignKey("WorkoutId");
+
                     b.Navigation("Exercise");
+                });
+
+            modelBuilder.Entity("Test.Models.GymData.Workout", b =>
+                {
+                    b.Navigation("GymTasks");
                 });
 
             modelBuilder.Entity("Test.Models.Progress.Progress", b =>

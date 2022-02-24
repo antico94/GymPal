@@ -14,7 +14,8 @@ const Login = () => {
             headers: {"Content-Type": "Application/json"}, body: JSON.stringify({email, password})
         });
         const content = await response.json();
-        if (content.data.Name!== "") {
+        console.log(response.ok)
+        if (response.ok) {
             LoginSuccess(content.data.Name)
             document.cookie = "jwt="+content.data.jwt
         } else LoginFailed();

@@ -33,7 +33,7 @@ ASP NET Core, C#, Entity Framework, Microsoft SQL Server, MVC Pattern, Swagger v
 ##Preview
 
 
-![1](images/1.png)
-![2](images/2.png)
-![3](images/3.png)
-![4](images/4.png)
+![1](./Test/images/1.png)
+![2](./Test/images/2.png)
+![3](./Test/images/3.png)
+![4](./Test/images/4.png)
